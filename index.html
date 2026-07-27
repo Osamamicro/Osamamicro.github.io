@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Osama Ahmed — .NET Team Lead</title>
+<meta name="description" content="Osama Ahmed — .NET Team Lead and Solutions Architect in Riyadh. 8+ years building national-scale systems for Saudi government entities: aviation regulation, national identity, civil defense.">
+<meta name="author" content="Osama Ahmed">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314181A'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='monospace' font-size='20' font-weight='700' fill='%236FCF9B'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://osamamicro.github.io/">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Osama Ahmed — .NET Team Lead">
+<meta property="og:description" content="Osama Ahmed — .NET Team Lead and Solutions Architect in Riyadh. 8+ years building national-scale systems for Saudi government entities: aviation regulation, national identity, civil defense.">
+<meta property="og:url" content="https://osamamicro.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Osama Ahmed — .NET Team Lead">
+<meta name="twitter:description" content="Osama Ahmed — .NET Team Lead and Solutions Architect in Riyadh. 8+ years building national-scale systems for Saudi government entities: aviation regulation, national identity, civil defense.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Osama Ahmed",
+  "jobTitle": ".NET Team Lead",
+  "url": "https://osamamicro.github.io/",
+  "address": {"@type": "PostalAddress", "addressLocality": "Riyadh", "addressCountry": "SA"},
+  "knowsLanguage": ["ar", "en"],
+  "sameAs": [
+    "https://www.linkedin.com/in/osamamicro/",
+    "https://github.com/Osamamicro"
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --ground:#EAEBE6;
+    --raised:#E1E3DC;
+    --ink:#16191A;
+    --muted:#6B7270;
+    --faint:#8E948F;
+    --rule:#C9CCC5;
+    --accent:#1F5C3D;
+    --accent-soft:#1F5C3D1A;
+    --invert-ground:#14181A;
+    --invert-ink:#E8EAE5;
+    --invert-rule:#2C3331;
+    --invert-accent:#6FCF9B;
+    --mono:ui-monospace,"Cascadia Mono","Segoe UI Mono","SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --step:clamp(.75rem,.7rem + .2vw,.82rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#101312;--raised:#171B1A;--ink:#E6E8E4;--muted:#98A09B;--faint:#767D79;
+      --rule:#282E2C;--accent:#6FCF9B;--accent-soft:#6FCF9B1F;
+      --invert-ground:#E9EAE5;--invert-ink:#14181A;--invert-rule:#C6C9C2;--invert-accent:#1F5C3D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#101312;--raised:#171B1A;--ink:#E6E8E4;--muted:#98A09B;--faint:#767D79;
+    --rule:#282E2C;--accent:#6FCF9B;--accent-soft:#6FCF9B1F;
+    --invert-ground:#E9EAE5;--invert-ink:#14181A;--invert-rule:#C6C9C2;--invert-accent:#1F5C3D;
+  }
+  :root[data-theme="light"]{
+    --ground:#EAEBE6;--raised:#E1E3DC;--ink:#16191A;--muted:#6B7270;--faint:#8E948F;
+    --rule:#C9CCC5;--accent:#1F5C3D;--accent-soft:#1F5C3D1A;
+    --invert-ground:#14181A;--invert-ink:#E8EAE5;--invert-rule:#2C3331;--invert-accent:#6FCF9B;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    /* 100vw includes the scrollbar; the full-bleed ledger would otherwise
+       overflow by the scrollbar width and create horizontal scroll */
+    overflow-x:hidden}
+  a{color:inherit}
+  ::selection{background:var(--accent);color:var(--ground)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  .shell{max-width:1140px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3.5rem)}
+  .lbl{font-family:var(--mono);font-size:var(--step);letter-spacing:.14em;
+    text-transform:uppercase;color:var(--faint)}
+
+  /* ── masthead ─────────────────────────────── */
+  .top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    padding:1.5rem 0;border-bottom:1px solid var(--rule)}
+
+  header.hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(2.5rem,6vw,4rem)}
+  .name{font-family:var(--mono);font-weight:600;letter-spacing:-.03em;line-height:.9;
+    font-size:clamp(2.6rem,10.5vw,7.4rem);margin:0;text-wrap:balance}
+  .name .sep{color:var(--accent)}
+  .role{font-family:var(--mono);font-size:clamp(.85rem,2.1vw,1.05rem);letter-spacing:.1em;
+    text-transform:uppercase;margin:1.4rem 0 0;color:var(--muted)}
+  .thesis{max-width:62ch;font-size:clamp(1.05rem,2.4vw,1.28rem);line-height:1.55;
+    margin:2.6rem 0 0;text-wrap:pretty}
+  .thesis b{font-weight:600;box-shadow:inset 0 -.4em 0 var(--accent-soft)}
+
+  /* readout strip */
+  .readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:3rem}
+  .cell{padding:1rem 1.15rem;border-inline-start:1px solid var(--rule)}
+  .cell:first-child{border-inline-start:0}
+  .cell dt{margin:0}
+  .cell dd{margin:.45rem 0 0;font-family:var(--mono);font-size:.95rem;letter-spacing:-.01em}
+  .live{display:inline-flex;align-items:center;gap:.5rem;color:var(--accent);font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+  @media (prefers-reduced-motion:no-preference){
+    .dot{animation:pulse 2.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  }
+
+  /* ── sections ─────────────────────────────── */
+  section{padding:clamp(3.25rem,7vw,5.5rem) 0;border-top:1px solid var(--rule)}
+  .head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem}
+  .head h2{font-family:var(--mono);font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:600;
+    letter-spacing:.02em;margin:0;text-transform:uppercase}
+  .head .rule{flex:1;height:1px;background:var(--rule)}
+
+  /* ── ledger (signature, inverted) ─────────── */
+  .ledger{background:var(--invert-ground);color:var(--invert-ink);
+    padding:clamp(2rem,5vw,3.25rem) 0;margin:0 calc(50% - 50vw)}
+  .ledger .shell{max-width:1140px}
+  .ledger .head h2,.ledger .lbl{color:var(--invert-ink)}
+  .ledger .head .rule{background:var(--invert-rule)}
+  .ledger .note{color:var(--invert-ink);opacity:.62;max-width:56ch;margin:2rem 0 0;font-size:.95rem}
+  .rows{display:flex;flex-direction:column}
+  .row{display:grid;gap:.35rem 1.5rem;padding:1.15rem 0;
+    border-top:1px solid var(--invert-rule);
+    grid-template-columns:minmax(0,1fr);align-items:baseline}
+  .row:last-child{border-bottom:1px solid var(--invert-rule)}
+  @media(min-width:760px){
+    .row{grid-template-columns:minmax(0,22ch) minmax(0,1fr) auto;gap:1.5rem}
+  }
+  .sys{font-family:var(--mono);font-weight:600;font-size:1rem;letter-spacing:-.01em}
+  .org{font-family:var(--mono);font-size:var(--step);letter-spacing:.12em;
+    text-transform:uppercase;opacity:.55;display:block;margin-top:.3rem}
+  .what{font-size:.95rem;opacity:.8;line-height:1.5}
+  .stamp{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--invert-rule);padding:.3rem .6rem;white-space:nowrap;
+    color:var(--invert-accent);justify-self:start}
+
+  /* ── metrics ──────────────────────────────── */
+  .metrics{display:grid;gap:1px;background:var(--rule);
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));border:1px solid var(--rule)}
+  .metric{background:var(--ground);padding:1.6rem 1.4rem}
+  .fig{font-family:var(--mono);font-weight:600;letter-spacing:-.04em;
+    font-size:clamp(2.2rem,5.5vw,3.1rem);line-height:1;font-variant-numeric:tabular-nums}
+  .metric p{margin:.75rem 0 0;font-size:.92rem;color:var(--muted);line-height:1.45}
+
+  /* ── timeline ─────────────────────────────── */
+  .job{display:grid;gap:.5rem 2.5rem;padding:1.6rem 0;border-top:1px solid var(--rule)}
+  @media(min-width:820px){.job{grid-template-columns:14ch minmax(0,1fr)}}
+  .when{font-family:var(--mono);font-size:var(--step);letter-spacing:.06em;color:var(--faint);
+    font-variant-numeric:tabular-nums;padding-top:.25rem}
+  .title{font-weight:650;font-size:1.06rem;margin:0}
+  .org2{font-family:var(--mono);font-size:var(--step);letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);margin:.35rem 0 .7rem}
+  .job ul{margin:0;padding-inline-start:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+  .job li{font-size:.95rem;color:var(--muted);max-width:70ch}
+
+  /* ── stack ────────────────────────────────── */
+  .stack{display:flex;flex-direction:column}
+  .band{display:grid;gap:.6rem 2rem;padding:1.15rem 0;border-top:1px solid var(--rule)}
+  @media(min-width:760px){.band{grid-template-columns:16ch minmax(0,1fr);align-items:baseline}}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem}
+  .chip{font-family:var(--mono);font-size:.82rem;padding:.22rem .55rem;
+    border:1px solid var(--rule);color:var(--muted);white-space:nowrap}
+
+  /* ── list blocks ──────────────────────────── */
+  .two{display:grid;gap:clamp(2rem,5vw,3.5rem)}
+  @media(min-width:860px){.two{grid-template-columns:1fr 1fr}}
+  .deg{border-top:1px solid var(--rule);padding:1.15rem 0}
+  .deg h3{margin:0;font-size:1rem;font-weight:650}
+  .deg p{margin:.35rem 0 0;font-size:.92rem;color:var(--muted)}
+  .certs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .certs li{border-top:1px solid var(--rule);padding:.7rem 0;font-size:.94rem;
+    display:flex;gap:.75rem;align-items:baseline}
+  .certs li::before{content:"";width:5px;height:5px;background:var(--accent);flex:none;
+    transform:translateY(-2px)}
+
+  /* ── contact ──────────────────────────────── */
+  .contact{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .btn{font-family:var(--mono);font-size:.9rem;letter-spacing:.04em;text-decoration:none;
+    padding:.7rem 1.15rem;border:1px solid var(--ink);transition:background .18s,color .18s}
+  .btn:hover{background:var(--ink);color:var(--ground)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--ground)}
+  .btn.primary:hover{background:transparent;color:var(--accent)}
+  footer{padding:2.5rem 0 3.5rem;border-top:1px solid var(--rule)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .rise{opacity:0;transform:translateY(14px);
+      animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+    @keyframes rise{to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <span class="lbl">Osama Ahmed — Engineering Profile</span>
+    <span class="lbl">Riyadh · UTC+3</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="shell">
+    <h1 class="name rise">OSAMA<span class="sep">·</span>AHMED</h1>
+    <p class="role rise" style="animation-delay:.08s">.NET Team Lead — Senior Software Engineer — Solutions Architect</p>
+
+    <p class="thesis rise" style="animation-delay:.16s">
+      I build the systems a country runs on: aviation regulation, national identity, civil defense.
+      <b>Most of that work has no public link</b> — it runs behind government firewalls, which is
+      exactly where it belongs. So here is the ledger instead.
+    </p>
+
+    <dl class="readout rise" style="animation-delay:.24s">
+      <div class="cell"><dt class="lbl">Experience</dt><dd>8+ years</dd></div>
+      <div class="cell"><dt class="lbl">Based</dt><dd>Riyadh, Saudi Arabia</dd></div>
+      <div class="cell"><dt class="lbl">Languages</dt><dd>Arabic · English</dd></div>
+      <div class="cell"><dt class="lbl">Status</dt>
+        <dd><span class="live"><span class="dot"></span>Open to offers</span></dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="ledger" aria-labelledby="prod">
+  <div class="shell">
+    <div class="head">
+      <h2 id="prod">In production</h2><span class="rule"></span>
+      <span class="lbl">7 systems</span>
+    </div>
+
+    <div class="rows">
+      <div class="row">
+        <div><span class="sys">Violation Management System</span><span class="org">GACA</span></div>
+        <p class="what">Nationwide aviation regulatory compliance — .NET 9, Clean Architecture, CQRS.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">Testing &amp; Certification</span><span class="org">GACA</span></div>
+        <p class="what">Aviation personnel licensing, examinations, automated workflows.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">Tanfeeth Portal</span><span class="org">GACA</span></div>
+        <p class="what">Regulatory execution and case handling for the civil aviation sector.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">Absher</span><span class="org">Ministry of Interior</span></div>
+        <p class="what">Citizen-facing national services, thousands of daily users.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">MSB API Gateway</span><span class="org">Ministry of Interior</span></div>
+        <p class="what">High-throughput gateway fronting national digital services.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">Human Rights Platform</span><span class="org">Ministry of Interior</span></div>
+        <p class="what">Large-scale citizen platform under strict availability and security rules.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+      <div class="row">
+        <div><span class="sys">Ministry of Investment ERP</span><span class="org">Optima</span></div>
+        <p class="what">Full-stack e-government ERP, backend modules and cross-entity integration.</p>
+        <span class="stamp">Source — closed</span>
+      </div>
+    </div>
+
+    <p class="note">Nothing above links anywhere. That is the nature of the work — and the reason
+      this page leads with outcomes rather than repositories.</p>
+  </div>
+</section>
+
+<section aria-labelledby="measured">
+  <div class="shell">
+    <div class="head"><h2 id="measured">Measured</h2><span class="rule"></span></div>
+    <div class="metrics">
+      <div class="metric"><div class="fig">60%</div>
+        <p>Faster deployments after establishing Azure DevOps CI/CD at GACA — manual release errors eliminated.</p></div>
+      <div class="metric"><div class="fig">35%</div>
+        <p>Reduction in application response time through SQL Server, EF Core and API tuning.</p></div>
+      <div class="metric"><div class="fig">20%</div>
+        <p>Query performance gain on high-volume Oracle and SQL Server workloads at Civil Defense.</p></div>
+      <div class="metric"><div class="fig">6→9</div>
+        <p>Legacy .NET modernization onto Clean Architecture, CQRS and MediatR.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="track">
+  <div class="shell">
+    <div class="head"><h2 id="track">Track record</h2><span class="rule"></span></div>
+
+    <div class="job">
+      <div class="when">2025 — now</div>
+      <div>
+        <p class="title">.NET Team Lead</p>
+        <p class="org2">General Authority of Civil Aviation · Riyadh</p>
+        <ul>
+          <li>Lead the .NET engineers behind VMS, TCS and the Tanfeeth portal for Saudi Arabia's civil aviation regulator.</li>
+          <li>Architected the .NET 6 → .NET 9 modernization on Clean Architecture, CQRS and MediatR.</li>
+          <li>Delivered secure cross-government integration — Nafath, Tawakkalna, Ajwaa Billing, EFAA — over SOAP and REST.</li>
+          <li>Aligned UI to the DGA National Design System in React and TypeScript, meeting Saudi e-government accessibility standards.</li>
+          <li>Introduced AI-assisted automation with n8n, Claude and Azure AI Foundry.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2022 — 2025</div>
+      <div>
+        <p class="title">Senior Software Engineer</p>
+        <p class="org2">Ministry of Interior · Riyadh</p>
+        <ul>
+          <li>Led four backend engineers across Absher, the Human Rights Platform and the MSB API Gateway.</li>
+          <li>Designed RESTful APIs and microservices under strict high-availability and security requirements.</li>
+          <li>Containerized delivery with Docker, ending environment-specific defects.</li>
+          <li>Mentored the team on Clean Architecture, CQRS and SOLID.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2022</div>
+      <div>
+        <p class="title">Senior .NET Developer</p>
+        <p class="org2">General Directorate of Civil Defense · Riyadh</p>
+        <ul>
+          <li>Built enterprise features and reporting modules in ASP.NET Core and MVC.</li>
+          <li>Tuned Oracle and SQL Server databases on high-volume operational workloads.</li>
+          <li>Delivered Web APIs powering mobile apps, SSRS reports and BI dashboards.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2019 — 2021</div>
+      <div>
+        <p class="title">Senior .NET Developer</p>
+        <p class="org2">Optima for Software Solutions · Khartoum</p>
+        <ul>
+          <li>Delivered e-government ERP systems in C# and ASP.NET, including Ministry of Investment backend modules.</li>
+          <li>Built large-scale data workflows connecting multiple government entities; mentored juniors on Agile.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2020 — 2022</div>
+      <div>
+        <p class="title">Product Manager &amp; UX Designer <span class="lbl">— concurrent</span></p>
+        <p class="org2">SYBER Technology · Khartoum</p>
+        <ul>
+          <li>Migrated an e-commerce platform to a native mobile app, raising payment usability scores by 60%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2019</div>
+      <div>
+        <p class="title">.NET Backend Developer</p>
+        <p class="org2">Altkamul Altiqani Computers · Sharjah</p>
+        <ul>
+          <li>Built high-volume financial applications in ASP.NET Core, MVC and EF Core.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="stack">
+  <div class="shell">
+    <div class="head"><h2 id="stack">Stack</h2><span class="rule"></span></div>
+    <div class="stack">
+      <div class="band"><span class="lbl">Backend</span><div class="chips">
+        <span class="chip">C#</span><span class="chip">.NET / .NET Core</span><span class="chip">ASP.NET Core</span>
+        <span class="chip">Web API</span><span class="chip">Microservices</span><span class="chip">EF Core</span>
+        <span class="chip">LINQ</span><span class="chip">MediatR</span><span class="chip">SOAP</span></div></div>
+      <div class="band"><span class="lbl">Architecture</span><div class="chips">
+        <span class="chip">Clean Architecture</span><span class="chip">CQRS</span><span class="chip">DDD</span>
+        <span class="chip">Event-Driven</span><span class="chip">SOLID</span><span class="chip">Design Patterns</span></div></div>
+      <div class="band"><span class="lbl">Cloud &amp; DevOps</span><div class="chips">
+        <span class="chip">Azure</span><span class="chip">App Services</span><span class="chip">Azure AI Foundry</span>
+        <span class="chip">Azure DevOps</span><span class="chip">GitHub Actions</span><span class="chip">Docker</span>
+        <span class="chip">Kubernetes</span><span class="chip">IIS</span></div></div>
+      <div class="band"><span class="lbl">Data</span><div class="chips">
+        <span class="chip">SQL Server</span><span class="chip">Oracle</span><span class="chip">PostgreSQL</span>
+        <span class="chip">MySQL</span><span class="chip">T-SQL</span><span class="chip">PL/SQL</span>
+        <span class="chip">Query Optimization</span></div></div>
+      <div class="band"><span class="lbl">Frontend</span><div class="chips">
+        <span class="chip">Angular</span><span class="chip">React</span><span class="chip">TypeScript</span>
+        <span class="chip">Tailwind CSS</span></div></div>
+      <div class="band"><span class="lbl">Identity</span><div class="chips">
+        <span class="chip">ASP.NET Identity</span><span class="chip">Active Directory</span><span class="chip">ADFS</span>
+        <span class="chip">SAML</span><span class="chip">OAuth 2.0</span><span class="chip">RBAC</span>
+        <span class="chip">Managed Identity</span></div></div>
+      <div class="band"><span class="lbl">AI</span><div class="chips">
+        <span class="chip">Azure AI Services</span><span class="chip">AI Agents</span><span class="chip">n8n</span>
+        <span class="chip">Claude</span><span class="chip">Prompt Engineering</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="edu">
+  <div class="shell">
+    <div class="head"><h2 id="edu">Education &amp; certifications</h2><span class="rule"></span></div>
+    <div class="two">
+      <div>
+        <div class="deg">
+          <h3>MEng, Software Engineering</h3>
+          <p>University of Electronic Science and Technology of China, Chengdu · 2021</p>
+          <p>CGPA 3.59 / 4.00 · 3rd Prize Academic Achievement Award</p>
+        </div>
+        <div class="deg">
+          <h3>BSc (Honors), Computer Science</h3>
+          <p>University of Gezira, Sudan · 2017</p>
+          <p>CGPA 3.47 / 4.00 · Top 5 in Department · Senate Prize for Academic Excellence</p>
+        </div>
+      </div>
+      <ul class="certs">
+        <li>Claude Code in Action — Anthropic</li>
+        <li>Build AI Agents and Automate Workflows with n8n</li>
+        <li>AI Coding Agents with GitHub Copilot and Cursor</li>
+        <li>Spec-Driven Development with GitHub Spec Kit</li>
+        <li>Certified API Designer — API Academy</li>
+        <li>Docker Foundations Professional Certificate</li>
+        <li>Career Essentials in Generative AI — Microsoft</li>
+        <li>Transitioning from Waterfall to Agile Project Management</li>
+        <li>Scrum Certification</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="contact">
+  <div class="shell">
+    <div class="head"><h2 id="contact">Get in touch</h2><span class="rule"></span></div>
+    <p class="thesis" style="margin-top:0">
+      Open to .NET lead, principal and solutions-architect roles — Saudi Arabia, the Gulf, UK,
+      Europe, Canada and Australia. Eligible to work in Saudi Arabia on a transferable Iqama.
+    </p>
+    <div class="contact">
+      <a class="btn primary" href="mailto:osamasdn@outlook.com">Get in touch</a>
+      <a class="btn" href="https://www.linkedin.com/in/osamamicro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/Osamamicro" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <span class="lbl">Osama Ahmed · .NET Team Lead · Riyadh, Saudi Arabia</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.style.animation = 'rise .6s cubic-bezier(.2,.7,.3,1) forwards';
+        io.unobserve(e.target);
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.row, .metric, .job, .band, .deg, .certs li').forEach(function(el){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(14px)';
+      io.observe(el);
+    });
+  })();
+</script>
+</body>
+</html>
