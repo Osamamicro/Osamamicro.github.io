@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staff Dashboard — Saudi Triathlon Federation</title>
+<meta name="description" content="Demo staff dashboard of the Saudi Triathlon Federation prototype — edit statistics and events, view registrations. Changes stay in this browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect width='44' height='44' rx='9' fill='%23060B14'/%3E%3Cpath d='M22 7 L37 36 H31.5 L22 17.5 L12.5 36 H7 Z' fill='none' stroke='%232EE68A' stroke-width='3.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+  .stat-edit{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media (max-width:1080px){.stat-edit{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:640px){.stat-edit{grid-template-columns:repeat(2,1fr)}}
+  .stat-edit .field{margin-bottom:0}
+  .saved-flash{
+    display:none;font-family:var(--mono);font-size:.72rem;color:var(--bike);
+    letter-spacing:.14em;text-transform:uppercase;
+  }
+  .saved-flash.show{display:inline-block}
+  .custom-row{display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .btn-danger{border-color:rgba(255,100,115,.5);color:var(--danger)}
+  .btn-danger:hover{border-color:var(--danger);background:rgba(255,100,115,.1)}
+</style>
+</head>
+<body>
+<div class="page-grid" aria-hidden="true"></div>
+<div id="site-header"></div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container">
+      <span class="eyebrow"><span class="en">Back office — demo</span><span class="ar">الإدارة الخلفية — تجريبي</span></span>
+      <h1><span class="en">Staff Dashboard</span><span class="ar">لوحة تحكم الاتحاد</span></h1>
+      <p class="hero-lead">
+        <span class="en">The proposal asks for figures and calendars that staff update "from the dashboard,
+        never the code" — this is that workflow, working. Edits here save to this browser and appear
+        instantly across the whole prototype. Production swaps this for the real CMS.</span>
+        <span class="ar">يطلب المقترح أرقاماً وتقويمات يحدّثها الموظفون «من لوحة التحكم لا من الشيفرة» —
+        وهذا هو ذلك النموذج يعمل فعلاً. التعديلات هنا تُحفظ في هذا المتصفح وتظهر فوراً في كامل الموقع.
+        وتُستبدل في النسخة النهائية بنظام إدارة المحتوى الفعلي.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ STATS EDITOR ============ -->
+  <section class="section" style="padding-top:16px">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow"><span class="en">Key indicators</span><span class="ar">المؤشرات الرئيسية</span></span>
+          <h2><span class="en">Federation statistics</span><span class="ar">إحصائيات الاتحاد</span></h2>
+        </div>
+        <span class="saved-flash" id="statsSaved"><span class="en">Saved — live across the site</span><span class="ar">حُفظت — ظاهرة في الموقع</span></span>
+      </div>
+      <div class="card">
+        <div class="stat-edit" id="statEditors"></div>
+        <div style="display:flex;gap:12px;margin-top:22px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" id="saveStats"><span class="en">Save statistics</span><span class="ar">حفظ الإحصائيات</span></button>
+          <a class="btn btn-ghost btn-sm" href="stats.html" target="_blank" rel="noopener"><span class="en">View public page</span><span class="ar">عرض الصفحة العامة</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENT MANAGER ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow"><span class="en">Calendar</span><span class="ar">التقويم</span></span>
+          <h2><span class="en">Add an event</span><span class="ar">إضافة فعالية</span></h2>
+        </div>
+        <span class="saved-flash" id="eventSaved"><span class="en">Added — live on events & timeline</span><span class="ar">أُضيفت — ظاهرة في الفعاليات والجدول</span></span>
+      </div>
+      <div class="card">
+        <form id="eventForm" novalidate>
+          <div class="form-grid">
+            <div class="field" data-key="ten">
+              <label for="eTitleEn"><span class="en">Title (English)</span><span class="ar">العنوان (إنجليزي)</span></label>
+              <input class="input" id="eTitleEn">
+              <span class="err"><span class="en">Required.</span><span class="ar">مطلوب.</span></span>
+            </div>
+            <div class="field" data-key="tar">
+              <label for="eTitleAr"><span class="en">Title (Arabic)</span><span class="ar">العنوان (عربي)</span></label>
+              <input class="input" id="eTitleAr" dir="rtl">
+              <span class="err"><span class="en">Required.</span><span class="ar">مطلوب.</span></span>
+            </div>
+            <div class="field">
+              <label for="eType"><span class="en">Calendar</span><span class="ar">التقويم</span></label>
+              <select class="input" id="eType">
+                <option value="competition">Competition · بطولات</option>
+                <option value="community">Community · مجتمعي</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="eStatus"><span class="en">Registration</span><span class="ar">التسجيل</span></label>
+              <select class="input" id="eStatus">
+                <option value="open">Open · مفتوح</option>
+                <option value="soon">Opens soon · يفتح قريباً</option>
+              </select>
+            </div>
+            <div class="field" data-key="date">
+              <label for="eDate"><span class="en">Date</span><span class="ar">التاريخ</span></label>
+              <input class="input" id="eDate" type="date">
+              <span class="err"><span class="en">Required.</span><span class="ar">مطلوب.</span></span>
+            </div>
+            <div class="field">
+              <label for="eCity"><span class="en">City</span><span class="ar">المدينة</span></label>
+              <select class="input" id="eCity"></select>
+            </div>
+            <div class="field">
+              <label for="eSwim"><span class="en">Swim distance</span><span class="ar">مسافة السباحة</span></label>
+              <input class="input" id="eSwim" placeholder="750m">
+            </div>
+            <div class="field">
+              <label for="eBike"><span class="en">Bike distance</span><span class="ar">مسافة الدراجة</span></label>
+              <input class="input" id="eBike" placeholder="20km">
+            </div>
+            <div class="field">
+              <label for="eRun"><span class="en">Run distance</span><span class="ar">مسافة الجري</span></label>
+              <input class="input" id="eRun" placeholder="5km">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" type="submit"><span class="en">Publish event</span><span class="ar">نشر الفعالية</span></button>
+        </form>
+      </div>
+
+      <div id="customEventsWrap" style="margin-top:24px" hidden>
+        <span class="eyebrow"><span class="en">Events added from this dashboard</span><span class="ar">فعاليات أضيفت من هذه اللوحة</span></span>
+        <div class="doc-list" id="customEvents"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REGISTRATIONS ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow"><span class="en">Athletes</span><span class="ar">الرياضيون</span></span>
+          <h2><span class="en">Registrations received</span><span class="ar">التسجيلات الواردة</span></h2>
+        </div>
+      </div>
+      <div class="table-wrap" id="regWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="mono">#</th>
+              <th><span class="en">Athlete</span><span class="ar">الرياضي</span></th>
+              <th><span class="en">Category</span><span class="ar">الفئة</span></th>
+              <th><span class="en">City</span><span class="ar">المدينة</span></th>
+              <th><span class="en">Club</span><span class="ar">النادي</span></th>
+            </tr>
+          </thead>
+          <tbody id="regRows"></tbody>
+        </table>
+      </div>
+      <div class="empty-note" id="regEmpty" hidden>
+        <span class="en">No registrations yet — try the public registration form.</span>
+        <span class="ar">لا توجد تسجيلات بعد — جرّب نموذج التسجيل العام.</span>
+      </div>
+      <div style="margin-top:18px">
+        <a class="btn btn-ghost btn-sm" href="register.html"><span class="en">Open registration form</span><span class="ar">فتح نموذج التسجيل</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESET ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <div>
+          <h2><span class="en">Reset the demo</span><span class="ar">إعادة تعيين التجربة</span></h2>
+          <p><span class="en">Clears dashboard edits and demo registrations from this browser and restores the defaults.</span>
+             <span class="ar">يمسح تعديلات اللوحة والتسجيلات التجريبية من هذا المتصفح ويعيد الوضع الافتراضي.</span></p>
+        </div>
+        <button class="btn btn-ghost btn-danger" id="resetBtn"><span class="en">Reset demo data</span><span class="ar">إعادة التعيين</span></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  (function () {
+    var bi = STFApp.bi;
+
+    function readOv() {
+      try { return JSON.parse(localStorage.getItem("stf-overrides") || "null") || { stats: {}, events: [] }; }
+      catch (e) { return { stats: {}, events: [] }; }
+    }
+    function writeOv(ov) {
+      try { localStorage.setItem("stf-overrides", JSON.stringify(ov)); } catch (e) { /* demo */ }
+    }
+    function flash(id) {
+      var el = document.getElementById(id);
+      el.classList.add("show");
+      setTimeout(function () { el.classList.remove("show"); }, 2600);
+    }
+
+    /* ---- stats editor (STF.stats already has overrides applied) ---- */
+    var keys = Object.keys(STF.stats);
+    document.getElementById("statEditors").innerHTML = keys.map(function (k) {
+      var s = STF.stats[k];
+      return (
+        '<div class="field">' +
+          '<label for="st-' + k + '">' + bi(s.label) + (s.suffix || "") + "</label>" +
+          '<input class="input mono" type="number" min="0" id="st-' + k + '" value="' + s.value + '">' +
+        "</div>"
+      );
+    }).join("");
+
+    document.getElementById("saveStats").addEventListener("click", function () {
+      var ov = readOv();
+      ov.stats = ov.stats || {};
+      keys.forEach(function (k) {
+        var v = parseInt(document.getElementById("st-" + k).value, 10);
+        if (!isNaN(v) && v >= 0) ov.stats[k] = v;
+      });
+      writeOv(ov);
+      flash("statsSaved");
+    });
+
+    /* ---- event manager ---- */
+    var citySel = document.getElementById("eCity");
+    Object.keys(STF.cities).forEach(function (k) {
+      citySel.appendChild(new Option(STF.cities[k].name.en + " · " + STF.cities[k].name.ar, k));
+    });
+
+    function renderCustom() {
+      var ov = readOv();
+      var list = ov.events || [];
+      document.getElementById("customEventsWrap").hidden = list.length === 0;
+      document.getElementById("customEvents").innerHTML = list.map(function (e, i) {
+        return (
+          '<div class="doc-row custom-row">' +
+            '<span class="doc-main"><h4>' + bi(e.title) + "</h4>" +
+              '<span class="doc-meta"><span class="mono">' + e.date + "</span><span>" + bi(STF.cities[e.city].name) + "</span><span>" + e.type.toUpperCase() + "</span></span>" +
+            "</span>" +
+            '<button class="btn btn-ghost btn-sm btn-danger" data-i="' + i + '">' + bi({ en: "Remove", ar: "حذف" }) + "</button>" +
+          "</div>"
+        );
+      }).join("");
+    }
+    renderCustom();
+
+    document.getElementById("customEvents").addEventListener("click", function (ev) {
+      var b = ev.target.closest("button[data-i]");
+      if (!b) return;
+      var ov = readOv();
+      ov.events.splice(parseInt(b.dataset.i, 10), 1);
+      writeOv(ov);
+      renderCustom();
+    });
+
+    document.getElementById("eventForm").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var form = this, ok = true;
+      function check(key, valid) {
+        var f = form.querySelector('.field[data-key="' + key + '"]');
+        if (f) f.classList.toggle("invalid", !valid);
+        if (!valid) ok = false;
+      }
+      var ten = document.getElementById("eTitleEn").value.trim();
+      var tar = document.getElementById("eTitleAr").value.trim();
+      var date = document.getElementById("eDate").value;
+      check("ten", ten.length > 2);
+      check("tar", tar.length > 2);
+      check("date", !!date);
+      if (!ok) return;
+
+      var city = citySel.value;
+      var e = {
+        id: "custom-" + Date.now(),
+        type: document.getElementById("eType").value,
+        status: document.getElementById("eStatus").value,
+        date: date, time: "06:00",
+        city: city,
+        venue: STF.cities[city].name,
+        title: { en: ten, ar: tar },
+        distances: {
+          swim: document.getElementById("eSwim").value.trim() || null,
+          bike: document.getElementById("eBike").value.trim() || null,
+          run: document.getElementById("eRun").value.trim() || null
+        },
+        categories: ["Open"],
+        desc: {
+          en: "Added from the staff dashboard demo. Full description is edited in the production CMS.",
+          ar: "أُضيفت من لوحة التحكم التجريبية. يُحرر الوصف الكامل في نظام إدارة المحتوى."
+        }
+      };
+      var ov = readOv();
+      ov.events = ov.events || [];
+      ov.events.push(e);
+      writeOv(ov);
+      form.reset();
+      renderCustom();
+      flash("eventSaved");
+    });
+
+    /* ---- registrations ---- */
+    var regs = [];
+    try { regs = JSON.parse(localStorage.getItem("stf-registrations") || "[]"); } catch (e) { /* demo */ }
+    document.getElementById("regWrap").hidden = regs.length === 0;
+    document.getElementById("regEmpty").hidden = regs.length > 0;
+    document.getElementById("regRows").innerHTML = regs.map(function (r) {
+      return (
+        "<tr>" +
+          '<td class="mono">' + r.num + "</td>" +
+          "<td>" + r.name.replace(/</g, "&lt;") + "</td>" +
+          '<td class="mono">' + r.category + "</td>" +
+          "<td>" + bi(STF.cities[r.city] ? STF.cities[r.city].name : { en: r.city, ar: r.city }) + "</td>" +
+          "<td>" + (r.club ? r.club.replace(/</g, "&lt;") : "—") + "</td>" +
+        "</tr>"
+      );
+    }).join("");
+
+    /* ---- reset ---- */
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      try {
+        localStorage.removeItem("stf-overrides");
+        localStorage.removeItem("stf-registrations");
+      } catch (e) { /* demo */ }
+      location.reload();
+    });
+  })();
+</script>
+</body>
+</html>

@@ -287,6 +287,22 @@ const STF = {
   ]
 };
 
+/* ---- demo dashboard overlay (Phase B stand-in) ----
+   admin.html saves edits to localStorage; they merge here so the whole
+   site reflects dashboard changes in this browser. Production replaces
+   this with the federation dashboard API. */
+try {
+  const _ov = JSON.parse(localStorage.getItem("stf-overrides") || "null");
+  if (_ov) {
+    if (_ov.stats) Object.keys(_ov.stats).forEach(k => {
+      if (STF.stats[k] && typeof _ov.stats[k] === "number") STF.stats[k].value = _ov.stats[k];
+    });
+    if (Array.isArray(_ov.events)) _ov.events.forEach(e => {
+      if (e && e.id && STF.cities[e.city]) STF.events.push(e);
+    });
+  }
+} catch (e) { /* storage unavailable — defaults stand */ }
+
 /* today's date is resolved at runtime so past events retire automatically */
 STF.today = new Date();
 STF.upcoming = STF.events

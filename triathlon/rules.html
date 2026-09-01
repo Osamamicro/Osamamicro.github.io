@@ -95,7 +95,7 @@
     var bi = STFApp.bi;
     document.getElementById("rulesList").innerHTML = STF.rules.map(function (r) {
       return (
-        '<a class="doc-row" href="#" title="Placeholder — PDF attached in production" style="--doc-c:var(--bike)">' +
+        '<a class="doc-row" href="assets/docs/' + r.id + '.pdf" download style="--doc-c:var(--bike)">' +
           '<span class="doc-icon">PDF</span>' +
           '<span class="doc-main"><h4>' + bi(r.title) + "</h4>" +
             '<p class="muted" style="margin:4px 0 6px;font-size:.86rem">' + bi(r.desc) + "</p>" +
