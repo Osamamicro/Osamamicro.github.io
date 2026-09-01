@@ -184,6 +184,7 @@
             '<li><a href="stats.html">' + bi({ en: "Federation statistics", ar: "إحصائيات الاتحاد" }) + "</a></li>" +
           "</ul></div>" +
           "<div><h4>" + bi({ en: "Get involved", ar: "شارك معنا" }) + "</h4><ul>" +
+            '<li><a href="register.html">' + bi({ en: "Athlete registration", ar: "تسجيل الرياضيين" }) + "</a></li>" +
             '<li><a href="join.html">' + bi({ en: "Become an athlete", ar: "كن رياضياً" }) + "</a></li>" +
             '<li><a href="training.html">' + bi({ en: "Training guide", ar: "دليل التدريب" }) + "</a></li>" +
             '<li><a href="join.html#clubs">' + bi({ en: "Affiliated clubs", ar: "الأندية المنتسبة" }) + "</a></li>" +
@@ -197,6 +198,7 @@
         "</div>" +
         '<div class="footer-bottom">' +
           "<span>© " + year + " " + bi({ en: "Saudi Triathlon Federation — design prototype", ar: "الاتحاد السعودي للترايثلون — نموذج تصميمي" }) + "</span>" +
+          '<a href="admin.html">' + bi({ en: "STAFF DASHBOARD (DEMO)", ar: "لوحة التحكم (تجريبي)" }) + "</a>" +
           '<span class="en">SWIM · BIKE · RUN</span><span class="ar">سباحة · دراجة · جري</span>' +
         "</div>" +
       "</div></footer>"

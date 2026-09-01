@@ -18,7 +18,7 @@ browsing, serving athletes, the public, clubs, coaches, organizers, media, and p
 | 01 | Layout & design — modern, professional, standardized | Shared design system (`assets/css/main.css`), one header/nav/footer across all pages |
 | 02 | Governance & transparency + documents library | `governance.html` — board, committees, and a documents library filterable by **category and year** |
 | 03 | Join the federation / become an athlete | `join.html` — registration steps, categories, clubs, and the athlete pathway to the national team |
-| 04 | Rules & regulations, downloadable PDFs | `rules.html` — regulation cards with PDF download actions |
+| 04 | Rules & regulations, downloadable PDFs | `rules.html` — regulation cards; every download delivers a real (placeholder) PDF from `assets/docs/` |
 | 05 | Training guide | `training.html` — beginner-to-race guide, extensible for future guides |
 | 06 | Federation statistics, dynamic figures | `stats.html` + home stat band — all numbers come from one editable source (`assets/js/data.js`), the prototype's stand-in for a dashboard-driven API |
 | 07 | Events & calendar reorganization, page per event | `events.html` (past events separated automatically by date) + `event.html?id=…` detail template with info, date, location, registration, results |
@@ -66,11 +66,19 @@ The prototype keeps *all* editable content — events, statistics, documents, cl
 in `assets/js/data.js`. In production that file is replaced 1-to-1 by a headless CMS
 or dashboard API (the proposal's "easily updatable from the dashboard"):
 
-1. **Phase A (this prototype)** — static site, data file, GitHub Pages hosting.
-2. **Phase B** — headless CMS (events, documents, stats) + registration form backend.
-3. **Phase C** — athlete accounts, online race registration and results ingestion.
+1. **Phase A (delivered)** — static site, data file, GitHub Pages hosting.
+2. **Phase B (working demo delivered)** — `admin.html` is the staff dashboard demo:
+   edit statistics and publish events; changes save to the browser (`localStorage`)
+   and appear instantly across the whole site. Production swaps the storage layer
+   for a headless CMS / dashboard API — the UI and data flow are already proven.
+3. **Phase C (working demo delivered)** — `register.html` is the online athlete
+   registration flow: validation, category/club/event selection, demo license
+   issuance; submissions appear in the dashboard's registrations table. Production
+   adds identity verification, payment, and a real backend.
 
 ## 7. Out of scope for the prototype
 
-Real documents/PDFs (placeholders provided), payment/registration backend,
-CMS integration, real photography. All figures shown are illustrative placeholders.
+Real document content (branded placeholder PDFs are provided so every download works),
+payment processing, identity verification, server-side CMS integration, and real
+photography. All figures shown are illustrative placeholders, and the registration
+and dashboard demos store data in the visitor's browser only — nothing is transmitted.

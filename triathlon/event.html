@@ -87,7 +87,7 @@
     var ctaBtn = past
       ? '<a class="btn btn-ghost" href="events.html">' + bi({ en: "Browse upcoming events", ar: "تصفح الفعاليات القادمة" }) + "</a>"
       : e.status === "open"
-        ? '<a class="btn btn-primary" href="join.html">' + bi({ en: "Register interest", ar: "سجّل اهتمامك" }) + "</a>"
+        ? '<a class="btn btn-primary" href="register.html?event=' + e.id + '">' + bi({ en: "Register now", ar: "سجّل الآن" }) + "</a>"
         : '<span class="btn btn-ghost" aria-disabled="true" style="opacity:.6;cursor:default">' + bi({ en: "Registration opens soon", ar: "التسجيل يفتح قريباً" }) + "</span>";
 
     main.innerHTML =
