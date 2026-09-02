@@ -53,6 +53,10 @@ not on sci-fi clichés.
   IBM Plex Mono (telemetry: dates, distances, results) — Arabic: Tajawal + IBM Plex Sans Arabic.
 - **Motion**: animated stat counters, timeline leg drawing, pulsing map markers —
   all gated behind `prefers-reduced-motion`.
+- **Themes**: dark "Night Race" is the default identity; a light "Race Day" theme
+  is available via the header sun/moon toggle (persisted per visitor, and forceable
+  with `?theme=light`). Every colour is a token, so both themes stay legible —
+  discipline hues are deepened in light mode for contrast on white.
 
 ## 5. Bilingual strategy
 
