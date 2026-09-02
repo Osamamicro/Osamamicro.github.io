@@ -8,7 +8,21 @@
   "use strict";
 
   const LANG_KEY = "stf-lang";
+  const THEME_KEY = "stf-theme";
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- theme (dark default, light opt-in) ---------------- */
+  function currentTheme() { return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+
+  function applyTheme(theme) {
+    const html = document.documentElement;
+    if (theme === "light") html.setAttribute("data-theme", "light");
+    else html.removeAttribute("data-theme");
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* storage may be blocked */ }
+    document.querySelectorAll(".theme-toggle").forEach(b => {
+      b.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+    });
+  }
 
   /* ---------------- language ---------------- */
   function currentLang() { return document.documentElement.lang === "ar" ? "ar" : "en"; }
@@ -26,6 +40,9 @@
 
   let saved = null;
   try { saved = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
+
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem(THEME_KEY); } catch (e) { /* ignore */ }
 
   /* ---------------- bilingual text helper ---------------- */
   function bi(obj) {
@@ -157,6 +174,10 @@
           "</span>" +
         "</a>" +
         '<nav class="main-nav" id="mainNav" aria-label="Main">' + links + "</nav>" +
+        '<button class="theme-toggle" type="button" aria-label="Switch theme">' +
+          '<svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>' +
+          '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>' +
+        "</button>" +
         '<button class="lang-toggle" type="button">العربية</button>' +
         '<button class="nav-burger" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Menu">☰</button>' +
       "</div></header>"
@@ -226,15 +247,22 @@
   /* ---------------- boot ---------------- */
   function boot() {
     applyLang(saved === "ar" || saved === "en" ? saved : currentLang());
+    const urlTheme = new URLSearchParams(location.search).get("theme");
+    const initialTheme = (urlTheme === "light" || urlTheme === "dark") ? urlTheme
+      : (savedTheme === "light" ? "light" : "dark");
+    applyTheme(initialTheme);
 
     const headerHost = document.getElementById("site-header");
     const footerHost = document.getElementById("site-footer");
     if (headerHost) headerHost.innerHTML = buildHeader();
     if (footerHost) footerHost.innerHTML = buildFooter();
+    applyTheme(currentTheme());   /* refresh the toggle's aria-label after header renders */
 
     document.addEventListener("click", ev => {
       const t = ev.target.closest(".lang-toggle");
       if (t) { applyLang(currentLang() === "ar" ? "en" : "ar"); document.dispatchEvent(new CustomEvent("stf:lang")); return; }
+      const th = ev.target.closest(".theme-toggle");
+      if (th) { applyTheme(currentTheme() === "light" ? "dark" : "light"); document.dispatchEvent(new CustomEvent("stf:theme")); return; }
       const b = ev.target.closest(".nav-burger");
       if (b) {
         const nav = document.getElementById("mainNav");
