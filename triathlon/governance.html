@@ -147,7 +147,7 @@
 
       document.getElementById("docList").innerHTML = list.map(function (d) {
         return (
-          '<a class="doc-row" href="assets/docs/' + d.id + '.pdf" download ' +
+          '<a class="doc-row" href="' + (d.url || "assets/docs/" + d.id + ".pdf") + '" download ' +
             'style="--doc-c:' + (d.cat === "finance" ? "var(--run)" : d.cat === "minutes" ? "var(--swim)" : "var(--bike)") + '">' +
             '<span class="doc-icon">PDF</span>' +
             '<span class="doc-main"><h4>' + bi(d.title) + "</h4>" +

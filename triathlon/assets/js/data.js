@@ -288,20 +288,76 @@ const STF = {
 };
 
 /* ---- demo dashboard overlay (Phase B stand-in) ----
-   admin.html saves edits to localStorage; they merge here so the whole
-   site reflects dashboard changes in this browser. Production replaces
-   this with the federation dashboard API. */
-try {
-  const _ov = JSON.parse(localStorage.getItem("stf-overrides") || "null");
-  if (_ov) {
-    if (_ov.stats) Object.keys(_ov.stats).forEach(k => {
-      if (STF.stats[k] && typeof _ov.stats[k] === "number") STF.stats[k].value = _ov.stats[k];
-    });
-    if (Array.isArray(_ov.events)) _ov.events.forEach(e => {
-      if (e && e.id && STF.cities[e.city]) STF.events.push(e);
-    });
-  }
-} catch (e) { /* storage unavailable — defaults stand */ }
+   admin.html saves edits to localStorage under "stf-overrides"; they merge
+   here so the whole site reflects back-office changes in this browser.
+   Production replaces this whole block with the federation dashboard API.
+
+   Overlay shape (all keys optional):
+     stats     : { <statKey>: number }
+     eventsAdd : [ event, … ]        eventsEdit: { <id>: partialEvent }   eventsDel: [ id, … ]
+     docsAdd   : [ doc, … ]          docsDel   : [ id, … ]
+     rulesAdd  : [ rule, … ]         rulesDel  : [ id, … ]
+     clubsAdd  : [ club, … ]         clubsDel  : [ enName, … ]            */
+
+STF.OVERLAY_KEY = "stf-overrides";
+STF.readOverlay = function () {
+  try { return JSON.parse(localStorage.getItem(STF.OVERLAY_KEY) || "null") || {}; }
+  catch (e) { return {}; }
+};
+
+/* pristine copies so the admin can compute effective state and restore removals */
+STF._base = JSON.parse(JSON.stringify({
+  events: STF.events, documents: STF.documents, rules: STF.rules, clubs: STF.clubs,
+  stats: STF.stats
+}));
+
+/* pure merge: base snapshot + overlay -> effective lists. Used by the site
+   (mutating the globals below) and by admin.html (recomputing on each edit). */
+STF.mergeOverlay = function (base, ov) {
+  base = JSON.parse(JSON.stringify(base));
+  ov = ov || {};
+  if (Array.isArray(ov.events)) ov.eventsAdd = (ov.eventsAdd || []).concat(ov.events); /* v1 migration */
+
+  const stats = base.stats;
+  if (ov.stats) Object.keys(ov.stats).forEach(k => {
+    if (stats[k] && typeof ov.stats[k] === "number") stats[k].value = ov.stats[k];
+  });
+
+  let events = base.events;
+  if (ov.eventsEdit) events.forEach(e => {
+    const p = ov.eventsEdit[e.id];
+    if (!p) return;
+    if (p.title) e.title = p.title;
+    if (p.venue) e.venue = p.venue;
+    if (p.distances) e.distances = p.distances;
+    ["type", "status", "date", "time", "city"].forEach(k => { if (p[k] != null) e[k] = p[k]; });
+  });
+  if (Array.isArray(ov.eventsDel)) events = events.filter(e => ov.eventsDel.indexOf(e.id) === -1);
+  if (Array.isArray(ov.eventsAdd)) ov.eventsAdd.forEach(e => { if (e && e.id && STF.cities[e.city]) events.push(e); });
+
+  let documents = base.documents;
+  if (Array.isArray(ov.docsDel)) documents = documents.filter(d => ov.docsDel.indexOf(d.id) === -1);
+  if (Array.isArray(ov.docsAdd)) ov.docsAdd.forEach(d => { if (d && d.id) documents.push(d); });
+
+  let rules = base.rules;
+  if (Array.isArray(ov.rulesDel)) rules = rules.filter(r => ov.rulesDel.indexOf(r.id) === -1);
+  if (Array.isArray(ov.rulesAdd)) ov.rulesAdd.forEach(r => { if (r && r.id) rules.push(r); });
+
+  let clubs = base.clubs;
+  if (Array.isArray(ov.clubsDel)) clubs = clubs.filter(c => ov.clubsDel.indexOf(c.name.en) === -1);
+  if (Array.isArray(ov.clubsAdd)) ov.clubsAdd.forEach(c => { if (c && c.name) clubs.push(c); });
+
+  return { events, documents, rules, clubs, stats };
+};
+
+(function applyOverlay() {
+  const merged = STF.mergeOverlay(STF._base, STF.readOverlay());
+  STF.events = merged.events;
+  STF.documents = merged.documents;
+  STF.rules = merged.rules;
+  STF.clubs = merged.clubs;
+  STF.stats = merged.stats;
+})();
 
 /* today's date is resolved at runtime so past events retire automatically */
 STF.today = new Date();
