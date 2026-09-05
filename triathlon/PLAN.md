@@ -71,10 +71,13 @@ in `assets/js/data.js`. In production that file is replaced 1-to-1 by a headless
 or dashboard API (the proposal's "easily updatable from the dashboard"):
 
 1. **Phase A (delivered)** — static site, data file, GitHub Pages hosting.
-2. **Phase B (working demo delivered)** — `admin.html` is the staff dashboard demo:
-   edit statistics and publish events; changes save to the browser (`localStorage`)
-   and appear instantly across the whole site. Production swaps the storage layer
-   for a headless CMS / dashboard API — the UI and data flow are already proven.
+2. **Phase B (working demo delivered)** — `admin.html` is a full content-management
+   dashboard: a sidebar back-office with **add / edit / delete** on events, statistics,
+   the governance documents library, rules & guides, and clubs, plus a registrations
+   viewer and an overview with live KPI cards. Every change is written to a single
+   `localStorage` overlay (`stf-overrides`) that `data.js` merges over the base
+   content, so edits appear across the whole public site. Production swaps the
+   storage layer for a headless CMS / dashboard API — the UI and data flow are proven.
 3. **Phase C (working demo delivered)** — `register.html` is the online athlete
    registration flow: validation, category/club/event selection, demo license
    issuance; submissions appear in the dashboard's registrations table. Production

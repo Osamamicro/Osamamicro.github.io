@@ -219,7 +219,7 @@
         "</div>" +
         '<div class="footer-bottom">' +
           "<span>© " + year + " " + bi({ en: "Saudi Triathlon Federation — design prototype", ar: "الاتحاد السعودي للترايثلون — نموذج تصميمي" }) + "</span>" +
-          '<a href="admin.html">' + bi({ en: "STAFF DASHBOARD (DEMO)", ar: "لوحة التحكم (تجريبي)" }) + "</a>" +
+          '<a href="admin.html">' + bi({ en: "CONTENT DASHBOARD (DEMO)", ar: "لوحة إدارة المحتوى (تجريبي)" }) + "</a>" +
           '<span class="en">SWIM · BIKE · RUN</span><span class="ar">سباحة · دراجة · جري</span>' +
         "</div>" +
       "</div></footer>"
