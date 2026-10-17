@@ -366,7 +366,7 @@ export const writingItems: Item[] = [
     difficulty: 2,
     exams: ['pte-core'],
     situation:
-      'Your daughter\'s teacher, Mr. Brown, has offered a parent-teacher interview on Tuesday at 4 p.m., but you have a work commitment at that time. Write to him to apologise, suggest alternative times and ask whether he can send a summary of your daughter\'s progress in writing.',
+      'Your daughter Lena\'s teacher, Mr. Brown, has offered a parent-teacher interview on Tuesday at 4 p.m., but you have a work commitment at that time. Write to him to apologise, suggest alternative times and ask whether he can send a summary of your daughter\'s progress in writing.',
     bulletPoints: [
       { label: 'Apologise and explain the clash', keywords: ['apologise', 'apologies', 'sorry', 'unfortunately', 'work', 'commitment'] },
       { label: 'Suggest alternative times', keywords: ['alternative', 'thursday', 'wednesday', 'times', 'available', 'suggest', 'afternoon'] },
