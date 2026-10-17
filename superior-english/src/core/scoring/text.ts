@@ -15,13 +15,23 @@ export function wordCount(text: string): number {
   return tokenize(text).length;
 }
 
-/** Sentences split on . ! ? followed by whitespace or end of text. */
+/** "U.S.", "e.g.", "Dr." … end with a full stop but do not end a sentence. */
+const ABBREVIATION = /(?:\b(?:[A-Za-z]\.){1,3}|\b(?:Mr|Mrs|Ms|Dr|Prof|St|etc|vs|approx|No|Fig))\.?$/;
+
+/** Sentences split on . ! ? followed by whitespace and a capital, digit or quote. */
 export function splitSentences(text: string): string[] {
-  return text
+  const pieces = text
     .trim()
     .split(/(?<=[.!?])\s+(?=[A-Z0-9"'(])/)
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
+  const out: string[] = [];
+  for (const piece of pieces) {
+    const prev = out[out.length - 1];
+    if (prev !== undefined && ABBREVIATION.test(prev)) out[out.length - 1] = `${prev} ${piece}`;
+    else out.push(piece);
+  }
+  return out;
 }
 
 export function paragraphs(text: string): string[] {

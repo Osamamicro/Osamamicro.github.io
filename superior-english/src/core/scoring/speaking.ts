@@ -2,6 +2,7 @@ import type { KeyPoint, ScoreResult, SpeechResponse, TraitScore } from '../conte
 import { getTaskType } from '../exams/registry';
 import type { TaskTypeId, TraitId } from '../exams/types';
 import { align, band, clamp, hesitationCount, keyPointCoverage, repetitionCount, tokenize } from './text';
+import { ON_TOPIC_FLOOR } from './writing';
 
 /*
  * Speaking estimates from a speech-recognition transcript plus timing.
@@ -122,13 +123,16 @@ export function scoreOpenSpeech(
   const values: TraitValues = {};
   const contentId: TraitId = taskType === 'respond-to-situation' ? 'appropriacy' : 'content';
 
-  let ratio = coverage.ratio;
-  if (taskType === 'respond-to-situation') {
+  // Memorised templates and politeness alone must not earn content: below the on-topic
+  // floor the content trait is 0, which zeroes fluency and pronunciation as in PTE.
+  let ratio = coverage.ratio < ON_TOPIC_FLOOR ? 0 : coverage.ratio;
+  if (taskType === 'respond-to-situation' && ratio > 0) {
     const lower = response.transcript.toLowerCase();
     const polite = POLITE_MARKERS.filter((m) => lower.includes(m)).length;
     ratio = coverage.ratio * 0.75 + clamp(polite / 2, 0, 1) * 0.25;
     if (polite === 0) feedback.push('Use polite, situation-appropriate language (could you…, I’m sorry…, thank you…).');
   }
+  if (ratio === 0) feedback.push('Content: talk about what is actually in the prompt, not a memorised template.');
   values[contentId] = band(ratio, 6);
   feedback.push(`Covered ${coverage.covered.length} of ${keyPoints.length} key points.`);
   if (coverage.missed.length > 0) feedback.push(`Missing: ${coverage.missed.map((k) => k.label).join('; ')}`);

@@ -69,6 +69,14 @@ describe('Write Essay: form bands by word count', () => {
     const r = scoreWriteEssay(essayOf(150), essayPoints, 'model');
     expect(r.feedback[0]).toBe('Form: aim for 200–300 words (you wrote 150).');
   });
+
+  it('flags a common misspelling in the spelling trait', () => {
+    const clean = scoreWriteEssay(`${essayOf(250)} I receive the reports.`, essayPoints, 'model');
+    const misspelt = scoreWriteEssay(`${essayOf(250)} I recieve the reports.`, essayPoints, 'model');
+    expect(trait(clean, 'spelling').score).toBe(2);
+    expect(trait(misspelt, 'spelling').score).toBe(1);
+    expect(misspelt.feedback).toContain('Spelling: "recieve" → "receive"');
+  });
 });
 
 const emailPoints: KeyPoint[] = [

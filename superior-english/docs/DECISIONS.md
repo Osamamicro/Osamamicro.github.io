@@ -118,3 +118,27 @@ Australian Department of Home Affairs score requirements effective 7 August 2025
 
 **Consequences.** PTE Core has no published weighting; it reuses Academic shares for shared
 task types and is labelled "approximate" in the UI until Pearson publishes Core figures.
+
+---
+
+## Council round 1 — outcomes (orchestrator's call)
+
+Full input: `docs/council/pedagogy.md`, `docs/council/engineering.md`.
+
+| # | Question | Pedagogy | Engineering | **Decision** |
+| --- | --- | --- | --- | --- |
+| ADR-004 | Native speech scoring | Dev build + on-device recogniser | Server STT, keep Expo Go | **Server STT first** (inside the ADR-008 service), on-device recogniser as a v0.3 offline option. Keeps the owner's emulator/Expo Go workflow and gives web and phones one transcript engine. Audio is processed transiently and never stored. Fluency/pronunciation on phones stay hidden until calibrated (≥50 rater-scored recordings). |
+| ADR-006 | Accounts + sync | Right after v0.2 (attempts, mocks) | Next milestone, anonymous auth, no audio | **v0.2:** JSON export/import (cheap device-loss cover). **v0.3:** Supabase anonymous auth + sync of attempts, mocks and SRS. Audio is never synced. Identity also rate-limits the scoring API. |
+| ADR-008 | Scoring service: when / stack | Before bank expansion, writing first, calibrate | Supabase Edge Functions (TS) | **Before expanding the bank, writing first.** Supabase Edge Functions in TypeScript, so the rubric types are shared with `src/core`. Model/STT keys only in function secrets, never `EXPO_PUBLIC_*`. Timeout/offline/non-2xx falls back to on-device scoring with a note. Release gated on ≥100 human-rated responses; model version pinned; trait bands shown as ranges. |
+| ADR-010 | Web hosting | — | GitHub Pages project site, `baseUrl` | **Move the app to its own repo** (as was done with the triathlon prototype) and deploy with GitHub Actions to `osamamicro.github.io/superior-english/` (`experiments.baseUrl: "/superior-english"`, SPA `404.html`). This user-site repo serves its root from `main` and its `superior-english/` folder holds source, so hosting here would need Pages switched to Actions — **owner's choice**. |
+| ADR-011 | v0.2 learner features | Image-based DI; plan v2 with weekly minimums; SGD note grid | — | **Accepted, in that order.** Plan v2 anchors shipped now (daily DI, one long task per day on rotation). |
+
+**Applied immediately from the council's risk review:**
+- Phones in mock mode now ask for a self-rating instead of silently recording an unscored answer (`record-panel.tsx`).
+- The web recogniser stops on fatal errors (mic blocked, no service) and falls back to self-review instead of a silent 0.
+- Template/stock phrases no longer earn content: below 25% key-point coverage, essay content and open-speaking content are 0 (`ON_TOPIC_FLOOR`).
+- One grammar slip costs one band at any length (short SWTs were over-penalised).
+- Sentence splitting ignores abbreviations ("U.S.", "Dr."), so a valid one-sentence SWT keeps its Form point.
+
+**Backlog from the review:** meaning-aware key points (figure + direction in the same sentence),
+storage-full warning + schema version, ESLint config for `expo lint`.

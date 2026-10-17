@@ -42,8 +42,9 @@ function zeroAllBut(values: TraitValues, keep: TraitId[]): TraitValues {
 function grammarBand(text: string, words: number, feedback: string[]): number {
   const issues = grammarIssues(text);
   issues.slice(0, 3).forEach((i) => feedback.push(`${i.message}: “${i.excerpt}”`));
+  // One slip costs a band whatever the length; more slips are judged per 100 words.
   const per100 = (issues.length / Math.max(words, 1)) * 100;
-  return issues.length === 0 ? 2 : per100 <= 2 ? 1 : 0;
+  return issues.length === 0 ? 2 : issues.length === 1 || per100 <= 2 ? 1 : 0;
 }
 
 function spellingBand(text: string, feedback: string[]): number {
@@ -108,6 +109,9 @@ export function scoreSummarizeSpokenText(text: string, keyPoints: KeyPoint[], mo
   return build('summarize-spoken-text', values, feedback, modelAnswer);
 }
 
+/** Share of key points an answer must cover before template phrases earn credit. */
+export const ON_TOPIC_FLOOR = 0.25;
+
 const POSITION_MARKERS = ['i believe', 'i think', 'in my opinion', 'i agree', 'i disagree', 'i would argue', 'in my view', 'this essay'];
 const EXAMPLE_MARKERS = ['for example', 'for instance', 'such as', 'a case in point', 'to illustrate'];
 const CONCLUSION_MARKERS = ['in conclusion', 'to conclude', 'to sum up', 'in summary', 'overall'];
@@ -131,7 +135,11 @@ export function scoreWriteEssay(text: string, keyPoints: KeyPoint[], modelAnswer
   const coverage = keyPointCoverage(text, keyPoints);
   const hasPosition = containsAny(lower, POSITION_MARKERS);
   const hasExample = containsAny(lower, EXAMPLE_MARKERS);
-  values.content = band(coverage.ratio * 0.7 + (hasPosition ? 0.15 : 0) + (hasExample ? 0.15 : 0), 6);
+  // Stock phrases ("I believe", "for example") only count once the essay is on topic;
+  // below the floor content is 0, which (as in PTE) zeroes every other trait.
+  const onTopic = coverage.ratio >= ON_TOPIC_FLOOR;
+  values.content = onTopic ? band(coverage.ratio * 0.7 + (hasPosition ? 0.15 : 0) + (hasExample ? 0.15 : 0), 6) : 0;
+  if (!onTopic) feedback.push('Content: the essay does not address the prompt’s key ideas.');
   contentFeedback(coverage.missed, feedback);
   if (!hasPosition) feedback.push('State your position clearly in the introduction.');
   if (!hasExample) feedback.push('Support each body paragraph with a specific example.');

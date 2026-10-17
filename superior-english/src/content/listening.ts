@@ -251,7 +251,7 @@ export const listeningItems: Item[] = [
     title: 'Coral reefs',
     difficulty: 2,
     transcript:
-      'Coral reefs depend on a close partnership between coral animals and tiny algae that live inside their tissues. The algae provide {{1}} through photosynthesis, while the coral offers shelter and nutrients. When the water becomes too warm for several weeks, the algae are expelled, and the coral turns {{2}}. This process is called {{3}}. A bleached reef is not necessarily dead, because corals can recover if conditions improve and the algae return. However, repeated {{4}} events leave less time for recovery, and many reefs have already lost a large share of their coral cover. Scientists are testing several {{5}} approaches, including breeding heat-tolerant corals and improving water quality near the coast.',
+      'Coral reefs depend on a close partnership between coral animals and tiny algae that live inside their tissues. The algae provide {{1}} through photosynthesis, while the coral offers shelter and nutrients. When the water becomes too warm for several weeks, the algae are expelled, and the coral turns {{2}}. This process is called {{3}}. A bleached reef is not necessarily dead, because corals can recover if the algae return. However, repeated {{4}} events leave less time for recovery, and many reefs have already lost a large share of their coral cover. Scientists are testing several {{5}} approaches, including breeding heat-tolerant corals and improving water quality near the coast.',
     answers: ['energy', 'white', 'bleaching', 'heatwave', 'restoration'],
   },
   {
@@ -270,7 +270,7 @@ export const listeningItems: Item[] = [
     title: 'Ice hockey history',
     difficulty: 1,
     transcript:
-      'Ice hockey developed in Canada during the nineteenth century, when players adapted games that were played on frozen ponds and rivers. Early rules were {{1}}, and teams sometimes used a ball instead of a puck. One of the first indoor rinks was built in Montreal in the eighteen sixties, and the sport quickly spread across the country. Today, the {{2}} of hockey is a source of national pride, and minor leagues give young players a path to the professional level. Coaches now use video {{3}} to review each game, which helps them {{4}} strategies more precisely than before. Equipment has also {{5}} dramatically, with lighter sticks and helmets that protect players from serious injury.',
+      'Ice hockey developed in Canada during the nineteenth century, when players adapted games that were played on frozen ponds and rivers. Early rules were {{1}}, and teams sometimes used a ball instead of a puck. One of the first indoor rinks was built in Montreal in the eighteen sixties. Today, the {{2}} of hockey is a source of national pride, and minor leagues give young players a path to the professional level. Coaches now use video {{3}} to review each game, which helps them {{4}} strategies more precisely than before. Equipment has also {{5}} dramatically, with lighter sticks and helmets that protect players from serious injury.',
     answers: ['informal', 'culture', 'replays', 'refine', 'changed'],
   },
   {
@@ -280,7 +280,7 @@ export const listeningItems: Item[] = [
     difficulty: 3,
     voice: 'female',
     transcript:
-      'Earthquakes cannot be predicted with precision, but households can reduce the risk of injury considerably. The first step is to secure heavy furniture, such as bookshelves and water heaters, to the {{1}}. Next, prepare an emergency kit that contains at least three days of {{2}}, a first aid guide and a battery radio. During shaking, the recommended action is to drop to the floor, take {{3}} under a sturdy table, and hold on. Do not run outside while the building is moving, because falling debris is a {{4}} risk. After the shaking stops, check for gas leaks and listen for hissing sounds. If you smell gas, leave the building and {{5}} the emergency services from a safe distance. Practise these steps with your family {{6}}, so everyone knows what to do.',
+      'Earthquakes cannot be predicted, but households can reduce the risk of injury. First, secure heavy furniture, such as bookshelves and water heaters, to the {{1}}. Next, prepare an emergency kit with at least three days of {{2}}, and a battery radio. During shaking, drop to the floor, take {{3}} under a sturdy table, and hold on. Do not run outside while the building moves, because falling debris is a {{4}} risk. After the shaking stops, check for gas leaks. If you smell gas, leave the building and {{5}} the emergency services from a safe distance. Practise these steps with your family {{6}}, so everyone knows what to do.',
     answers: ['wall', 'food', 'cover', 'serious', 'contact', 'regularly'],
   },
   {
@@ -290,7 +290,7 @@ export const listeningItems: Item[] = [
     difficulty: 3,
     voice: 'male',
     transcript:
-      "In this seminar, we will examine how documentary filmmakers shape the stories they tell. Although documentaries are often presented as {{1}} records of reality, every film involves choices: what to film, which interviews to include, and how to {{2}} the material. Editing is especially powerful. A sequence of shots can create a sense of {{3}}, even when the original footage was ordinary. Many directors also use music and narration to guide the viewer's emotional {{4}}. Some critics argue that this {{5}} on the audience is unavoidable, while others believe filmmakers have a duty to show the subject's own voice. For your assignment, choose one documentary and {{6}} the techniques that the director uses to persuade. Be prepared to {{7}} your conclusions in class.",
+      "This seminar examines how documentary filmmakers shape the stories they tell. Although documentaries are often presented as {{1}} records of reality, every film involves choices: what to film, which interviews to include, and how to {{2}} the material. A sequence of shots can create a sense of {{3}}, even from ordinary footage. Directors also use music and narration to guide the viewer's emotional {{4}}. Some critics argue that this {{5}} on the audience is unavoidable, while others believe filmmakers have a duty to show the subject's own voice. For your assignment, choose one documentary and {{6}} how the director persuades. Be prepared to {{7}} your conclusions in class.",
     answers: ['objective', 'arrange', 'tension', 'response', 'influence', 'analyse', 'defend'],
   },
   {
@@ -298,7 +298,6 @@ export const listeningItems: Item[] = [
     type: 'listening-fill-blanks',
     title: 'Antibiotic use',
     difficulty: 2,
-    voice: 'female',
     transcript:
       'Antibiotics are among the most important medicines ever developed, yet they are often misused. They work by targeting bacteria, so they have no effect on {{1}} infections such as the common cold. Taking antibiotics when they are not needed can encourage bacteria to become {{2}}, which means the medicine gradually stops working. For this reason, patients should always {{3}} the full course, even when they feel better. Pharmacists can offer {{4}} on minor symptoms, such as sore throats, and may suggest rest and fluids instead. Public health agencies also {{5}} hospitals to track how often antibiotics are prescribed, because overuse is a growing global problem.',
     answers: ['viral', 'resistant', 'finish', 'advice', 'urge'],
@@ -358,7 +357,7 @@ export const listeningItems: Item[] = [
       },
       {
         id: 'b',
-        text: 'Historic cities have found that timed entry solves overcrowding in every case, so most planners now rely on it as their only tool for managing visitor numbers.',
+        text: 'Historic cities have found that timed entry solves overcrowding in every case, so most planners now rely on it as their only tool for managing visitor numbers, and few other measures have been tested.',
       },
       {
         id: 'c',
@@ -366,7 +365,7 @@ export const listeningItems: Item[] = [
       },
       {
         id: 'd',
-        text: 'Tourist levies are the most common response, because they reduce visits to famous monuments directly, and the revenue is used mainly to build new hotels near the historic centre.',
+        text: 'Tourist levies are the most common response, because they reduce visits to famous monuments directly, and the revenue is used mainly to build new hotels near the historic centre, rather than to repair streets or public facilities.',
       },
     ],
     answer: 'a',
@@ -404,7 +403,6 @@ export const listeningItems: Item[] = [
     type: 'highlight-correct-summary',
     title: 'Pumped hydro storage',
     difficulty: 3,
-    voice: 'male',
     exams: ['pte-academic'],
     script:
       'Renewable electricity from wind and solar power is variable, which creates a challenge for grid operators. When the sun sets or the wind drops, supply can fall rapidly, so grids need storage that can release energy on demand. Batteries are the fastest-growing option, but they are expensive for long periods of storage. Pumped hydro storage is the oldest and largest form of grid storage. It works by pumping water uphill to a reservoir when electricity is cheap, then letting it flow back down through turbines when demand is high. Pumped hydro currently holds the majority of the world\'s grid storage capacity, and it can supply power for many hours. However, pumped hydro requires specific geography, including two reservoirs at different heights and a suitable site. Construction takes many years and can have significant environmental impacts. Engineers are therefore exploring alternatives, such as storing energy in underground caverns or in heavy weights lifted by cranes.',
@@ -415,11 +413,11 @@ export const listeningItems: Item[] = [
       },
       {
         id: 'b',
-        text: 'Pumped hydro stores energy by moving water between reservoirs. It holds most of the world\'s grid storage, although it depends on geography and takes many years to build.',
+        text: 'Pumped hydro stores energy by moving water between reservoirs at different heights. It holds most of the world\'s grid storage, although it depends on geography and takes many years to build.',
       },
       {
         id: 'c',
-        text: 'Wind and solar power are steady sources of electricity, so grid operators rarely need storage, and pumped hydro is mainly used to supply water for farms and irrigation schemes.',
+        text: 'Wind and solar power are steady sources of electricity, so grid operators rarely need storage, and pumped hydro is mainly used to supply water for farms and irrigation schemes in dry regions.',
       },
       {
         id: 'd',
@@ -480,7 +478,7 @@ export const listeningItems: Item[] = [
       },
       {
         id: 'd',
-        text: 'Milestones and post stations were introduced in the modern period, after the Roman road network had been abandoned and largely forgotten by local communities across Europe and beyond.',
+        text: 'Milestones and post stations were introduced in the modern period, after the Roman road network had been abandoned and largely forgotten by local communities across Europe and beyond, as industrial travel demand grew sharply.',
       },
     ],
     answer: 'a',
@@ -647,8 +645,8 @@ export const listeningItems: Item[] = [
     options: [
       { id: 'a', text: 'a warning about predators' },
       { id: 'b', text: 'precise navigation instructions' },
-      { id: 'c', text: 'the colour of the flowers' },
-      { id: 'd', text: 'a request for more water' },
+      { id: 'c', text: 'flower colour' },
+      { id: 'd', text: 'a request for water' },
     ],
     answer: 'b',
   },
@@ -678,8 +676,8 @@ export const listeningItems: Item[] = [
     options: [
       { id: 'a', text: 'gradually increasing training load' },
       { id: 'b', text: 'stretching for longer periods' },
-      { id: 'c', text: 'wearing the most expensive shoes' },
-      { id: 'd', text: 'avoiding any form of warm-up' },
+      { id: 'c', text: 'wearing expensive shoes' },
+      { id: 'd', text: 'avoiding any warm-up' },
     ],
     answer: 'a',
   },
@@ -902,7 +900,6 @@ export const listeningItems: Item[] = [
     type: 'write-from-dictation',
     title: 'Qualitative methods',
     difficulty: 2,
-    voice: 'female',
     sentence: 'The seminar will focus on qualitative methods in educational research.',
   },
   {
@@ -962,7 +959,6 @@ export const listeningItems: Item[] = [
     type: 'write-from-dictation',
     title: 'Questions at meetings',
     difficulty: 2,
-    voice: 'female',
     sentence: 'The principal invited questions from parents at the end of the meeting.',
   },
 ];

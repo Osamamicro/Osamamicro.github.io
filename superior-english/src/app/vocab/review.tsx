@@ -1,11 +1,9 @@
-import { Screen, Text } from '@/components/ui';
+import { useLocalSearchParams } from 'expo-router';
 
-/** Placeholder. Owner: ui-app-screens agent. */
+import { ReviewSession } from '@/features/vocab/review-session';
+
 export default function VocabReviewScreen() {
-  return (
-    <Screen>
-      <Text variant="title">Vocabulary review</Text>
-      <Text tone="muted">Coming soon.</Text>
-    </Screen>
-  );
+  const { mode } = useLocalSearchParams<{ mode?: string }>();
+  const reviewMode = mode === 'new' ? 'new' : 'due';
+  return <ReviewSession key={reviewMode} mode={reviewMode} />;
 }

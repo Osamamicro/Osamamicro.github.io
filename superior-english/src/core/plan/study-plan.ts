@@ -46,6 +46,16 @@ const MINUTES: Partial<Record<TaskTypeId, number>> = {
   'reading-mcma': 2.5,
 };
 
+/** Long tasks rotated one per day so each gets timed practice every week. */
+const LONG_TASKS: TaskTypeId[] = [
+  'summarize-group-discussion',
+  'write-essay',
+  'write-email',
+  'summarize-written-text',
+  'summarize-spoken-text',
+  'retell-lecture',
+];
+
 export const minutesPerItem = (t: TaskTypeId) => MINUTES[t] ?? 1.5;
 
 export function daysUntil(examDate: string | null, now: number): number | null {
@@ -100,9 +110,18 @@ export function buildDailyPlan(
     tasks.push({ taskType, count, minutes: Math.round(count * minutesPerItem(taskType)), reason });
   };
 
+  const has = (t: TaskTypeId) => !!exam.weights[t];
   if (days !== null && days <= 14) {
-    const longWriting = (['write-essay', 'write-email'] as TaskTypeId[]).find((t) => exam.weights[t]);
+    const longWriting = (['write-essay', 'write-email'] as TaskTypeId[]).find(has);
     if (longWriting) add(longWriting, 1, 'Exam is close: keep timed writing sharp');
+  }
+  // Anchors so long, heavily weighted tasks are not starved by quick ones (council D4):
+  // Describe Image daily, and one long task per day on a rotation that covers each weekly.
+  if (has('describe-image') && (gaps.speaking ?? 1) > 0) add('describe-image', 2, `${exam.weights['describe-image']!.skills.speaking}% of Speaking — practise daily`);
+  const rotation = LONG_TASKS.filter(has);
+  if (rotation.length > 0) {
+    const today = rotation[Math.floor(now / 86400000) % rotation.length];
+    if (budget >= minutesPerItem(today) + 5) add(today, 1, 'Weekly rotation: timed practice of a long task');
   }
   // Short tasks get more repetitions; long ones one or two.
   for (const r of ranked.slice(0, 7)) add(r.id, minutesPerItem(r.id) >= 5 ? 1 : minutesPerItem(r.id) >= 2 ? 3 : 6, r.reason);
