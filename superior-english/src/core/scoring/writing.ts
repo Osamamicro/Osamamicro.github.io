@@ -170,8 +170,10 @@ export function scoreWriteEssay(text: string, keyPoints: KeyPoint[], modelAnswer
 }
 
 const GREETINGS = /^(dear|hi|hello|good (morning|afternoon|evening)|to whom it may concern)\b/i;
-const CLOSINGS = /\b(regards|sincerely|best wishes|best|cheers|thanks|thank you|yours faithfully|yours truly|take care|warm wishes)\b[,!.]?\s*\n?\s*\S*\s*$/i;
-const INFORMAL_MARKERS = ['hey', 'gonna', 'wanna', 'cheers', 'lol', '!!'];
+// Sign-off, optionally followed by a name of up to three words ("Kind regards,\nSam Patel").
+const CLOSINGS =
+  /\b(regards|sincerely|best wishes|best|cheers|thanks|thank you|yours faithfully|yours truly|take care|warm wishes)\b[,!.]?(?:\s+[A-Za-z.'’-]+){0,3}\s*$/i;
+const INFORMAL_WORDS = ['hey', 'gonna', 'wanna', 'cheers', 'lol'];
 
 export function scoreWriteEmail(
   text: string,
@@ -197,7 +199,8 @@ export function scoreWriteEmail(
   const hasGreeting = GREETINGS.test(trimmed);
   const hasClosing = CLOSINGS.test(trimmed);
   const lower = trimmed.toLowerCase();
-  const informalSlip = register !== 'informal' && INFORMAL_MARKERS.some((m) => lower.includes(m));
+  // Whole words only: "they" must not count as "hey".
+  const informalSlip = register !== 'informal' && (words.some((w) => INFORMAL_WORDS.includes(w)) || lower.includes('!!'));
   values['email-conventions'] = (hasGreeting ? 1 : 0) + (hasClosing ? 1 : 0) - (informalSlip ? 1 : 0);
   if (!hasGreeting) feedback.push('Open with a greeting (e.g. “Dear Ms Lee,”).');
   if (!hasClosing) feedback.push('Close with a sign-off (e.g. “Kind regards,” and your name).');

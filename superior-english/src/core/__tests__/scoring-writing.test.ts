@@ -144,17 +144,17 @@ describe('Write Email: conventions', () => {
     expect(trait(r, 'email-conventions').score).toBe(2);
   });
 
-  // Known bug: the informal-marker check is a substring match, so "hey" inside the common
+  // Regression (fixed): the informal-marker check is a substring match, so "hey" inside the common
   // word "they" counts as a casual slip and takes a mark off a correct formal email.
-  it.fails('does not treat "they" as the casual word "hey" (known bug: substring match)', () => {
+  it('does not treat "they" as the casual word "hey"', () => {
     const text = `Dear Ms Lee,\n\n${body} They will send the updated agenda on Monday.\n\nKind regards,\nSam`;
     const r = scoreWriteEmail(text, emailPoints, 'formal', 'model');
     expect(trait(r, 'email-conventions').score).toBe(2);
   });
 
-  // Known bug: the sign-off pattern only accepts one word after "regards", "Thanks" etc., so a
+  // Regression (fixed): the sign-off pattern only accepts one word after "regards", "Thanks" etc., so a
   // realistic full name such as "Sam Patel" is not recognised as a closing.
-  it.fails('recognises a sign-off with a two-word name (known bug: one token only)', () => {
+  it('recognises a sign-off with a two-word name', () => {
     const text = `Dear Ms Lee,\n\n${body}\n\nKind regards,\nSam Patel`;
     const r = scoreWriteEmail(text, emailPoints, 'formal', 'model');
     expect(trait(r, 'email-conventions').score).toBe(2);

@@ -21,7 +21,8 @@ the other traits.
 
 - **Form**: word-count bands (SWT one sentence 5–75; Essay 200–300; SST 50–70; Email 50–120).
 - **Content**: coverage of each item's key points (keywords + simple stemming); essays also
-  credit a stated position and examples.
+  credit a stated position and examples — but only above the on-topic floor (25% of key
+  points). Below it content is 0, so memorised templates cannot earn marks.
 - **Grammar**: rule checks (agreement, articles, capitalisation, "could of", repeated words).
 - **Vocabulary**: lexical diversity (moving type–token ratio) + academic-word ratio.
 - **Spelling**: common learner misspellings list.
@@ -35,7 +36,8 @@ Needs a transcript (web: browser speech recognition).
 
 - **Read Aloud / Repeat Sentence content**: word alignment with the reference (omissions,
   insertions, substitutions), RS 0–3 as in PTE.
-- **Open tasks (DI, RL, SGD, RTS)**: key-point coverage; RTS adds politeness/appropriacy markers.
+- **Open tasks (DI, RL, SGD, RTS)**: key-point coverage with the same on-topic floor; RTS adds
+  politeness/appropriacy markers once the answer is on topic.
 - **Fluency**: speaking rate (110–170 wpm best), hesitations, repetitions, use of the window.
 - **Pronunciation**: recogniser confidence blended with recognition rate (a proxy, not phonetics).
 - No transcript (Expo Go on phones): the learner self-rates content; fluency and pronunciation
