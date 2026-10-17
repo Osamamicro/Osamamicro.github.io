@@ -7,15 +7,19 @@ import {
   getTaskType,
   minutesPerItem,
   type PlanSettings,
+  type PlanTask,
   resolveSkillTargets,
   type ScoreEstimate,
   type SkillId,
   type TaskTypeId,
 } from '@/core';
 import { SKILLS } from '@/core/exams/types';
+
+const DAY = 86400000;
 const academic = getExam('pte-academic');
 const core = getExam('pte-core');
 const NOW = new Date(2026, 9, 10, 12).getTime();
+const ROTATION = 'Weekly rotation: timed practice of a long task';
 
 /** No attempts yet: every skill is untested. */
 const untested = (): ScoreEstimate => ({
@@ -38,8 +42,8 @@ const settings = (over: Partial<PlanSettings> = {}): PlanSettings => ({
   ...over,
 });
 
-const minutesOf = (tasks: { taskType: TaskTypeId; count: number }[]) =>
-  tasks.reduce((sum, t) => sum + t.count * minutesPerItem(t.taskType), 0);
+const minutesOf = (tasks: PlanTask[]) => tasks.reduce((sum, t) => sum + t.count * minutesPerItem(t.taskType), 0);
+const rotationOf = (tasks: PlanTask[]) => tasks.find((t) => t.reason === ROTATION);
 
 describe('daysUntil', () => {
   it('is null when no exam is booked or the date is invalid', () => {
@@ -70,17 +74,21 @@ describe('minutesPerItem', () => {
   });
 });
 
-describe('buildDailyPlan: choosing tasks', () => {
-  it('starts with the highest-value task and never repeats a task type', () => {
+describe('buildDailyPlan: order of tasks', () => {
+  it('opens with the Describe Image anchor, then one rotation task, then the top-ranked task', () => {
     const plan = buildDailyPlan(academic, settings(), untested(), 0, NOW);
-    const types = plan.tasks.map((t) => t.taskType);
-    // Repeat Sentence feeds Speaking (16%) and Listening (17%) at 0.75 minutes an item.
-    expect(types[0]).toBe('repeat-sentence');
-    expect(new Set(types).size).toBe(types.length);
-    expect(plan.tasks.every((t) => t.count >= 1)).toBe(true);
+    expect(plan.tasks[0]).toMatchObject({ taskType: 'describe-image', count: 2, reason: '31% of Speaking — practise daily' });
+    expect(plan.tasks[1].reason).toBe(ROTATION);
+    // Repeat Sentence has the most value per minute: Speaking 16% + Listening 17% at 0.75 min.
+    expect(plan.tasks[2].taskType).toBe('repeat-sentence');
   });
 
-  it('gives each task a reason naming the skills it feeds', () => {
+  it('never repeats a task type', () => {
+    const types = buildDailyPlan(academic, settings(), untested(), 0, NOW).tasks.map((t) => t.taskType);
+    expect(new Set(types).size).toBe(types.length);
+  });
+
+  it('gives each ranked task a reason naming the skills it feeds', () => {
     const plan = buildDailyPlan(academic, settings(), untested(), 0, NOW);
     const rs = plan.tasks.find((t) => t.taskType === 'repeat-sentence')!;
     expect(rs.reason).toBe('17% of Listening · 16% of Speaking');
@@ -108,6 +116,52 @@ describe('buildDailyPlan: choosing tasks', () => {
   });
 });
 
+describe('buildDailyPlan: Describe Image anchor', () => {
+  it('adds two Describe Image tasks a day while speaking is below target', () => {
+    const plan = buildDailyPlan(academic, settings(), scored({ speaking: 60, writing: 90, reading: 90, listening: 90 }), 0, NOW);
+    expect(plan.tasks[0]).toMatchObject({ taskType: 'describe-image', count: 2, reason: '31% of Speaking — practise daily' });
+  });
+
+  it('drops the anchor once the speaking target is met', () => {
+    const plan = buildDailyPlan(academic, settings(), scored({ speaking: 70, writing: 90, reading: 90, listening: 90 }), 0, NOW);
+    expect(plan.tasks.some((t) => t.reason.includes('practise daily'))).toBe(false);
+  });
+});
+
+describe('buildDailyPlan: weekly rotation of long tasks', () => {
+  it('adds one long task a day and covers every long task the exam has within a cycle', () => {
+    const picked = Array.from({ length: 5 }, (_, k) =>
+      rotationOf(buildDailyPlan(academic, settings(), untested(), 0, NOW + k * DAY).tasks)?.taskType,
+    );
+    expect([...picked].sort()).toEqual([
+      'retell-lecture',
+      'summarize-group-discussion',
+      'summarize-spoken-text',
+      'summarize-written-text',
+      'write-essay',
+    ]);
+  });
+
+  it('repeats the same long task after a full cycle (day k and day k + 5)', () => {
+    const day0 = rotationOf(buildDailyPlan(academic, settings(), untested(), 0, NOW).tasks);
+    const day5 = rotationOf(buildDailyPlan(academic, settings(), untested(), 0, NOW + 5 * DAY).tasks);
+    expect(day5?.taskType).toBe(day0?.taskType);
+  });
+
+  it('uses only the long tasks PTE Core has', () => {
+    const picked = Array.from({ length: 3 }, (_, k) =>
+      rotationOf(buildDailyPlan(core, settings(), untested(), 0, NOW + k * DAY).tasks)?.taskType,
+    );
+    expect([...picked].sort()).toEqual(['summarize-spoken-text', 'summarize-written-text', 'write-email']);
+  });
+
+  it('is skipped when the time left in the budget is too small for it', () => {
+    // 15 minutes less 10 for 40 due cards leaves 5: two Describe Image items use it up.
+    const plan = buildDailyPlan(academic, settings({ dailyMinutes: 15 }), untested(), 40, NOW);
+    expect(rotationOf(plan.tasks)).toBeUndefined();
+  });
+});
+
 describe('buildDailyPlan: focus and gaps', () => {
   it('focuses on an untested skill first', () => {
     const plan = buildDailyPlan(academic, settings(), untested(), 0, NOW);
@@ -117,13 +171,7 @@ describe('buildDailyPlan: focus and gaps', () => {
 
   it('measures gaps against per-skill DHA targets and focuses the largest', () => {
     const estimate = scored({ speaking: 80, writing: 80, reading: 50, listening: 80 });
-    const plan = buildDailyPlan(
-      academic,
-      settings({ skillTargets: resolveSkillTargets('dha-superior', 65) }),
-      estimate,
-      0,
-      NOW,
-    );
+    const plan = buildDailyPlan(academic, settings({ skillTargets: resolveSkillTargets('dha-superior', 65) }), estimate, 0, NOW);
     // Superior targets: R69 L70 S88 W85.
     expect(plan.gaps).toEqual({ reading: 19, listening: 0, speaking: 8, writing: 5 });
     expect(plan.focusSkill).toBe('reading');
@@ -140,16 +188,20 @@ describe('buildDailyPlan: focus and gaps', () => {
     expect(plan.gaps).toEqual({ speaking: 0, writing: 0, reading: 0, listening: 0 });
   });
 
-  it('puts reading tasks first when reading is the weak skill', () => {
+  it('puts the ranked reading tasks right after the anchors when reading is the weak skill', () => {
     const estimate = scored({ speaking: 90, writing: 90, reading: 10, listening: 90 });
     const plan = buildDailyPlan(academic, settings(), estimate, 0, NOW);
     expect(plan.focusSkill).toBe('reading');
-    expect(getTaskType(plan.tasks[0].taskType).skills.reading).toBeGreaterThan(0);
+    // Speaking target is met, so there is no Describe Image anchor either.
+    expect(plan.tasks.some((t) => t.reason.includes('practise daily'))).toBe(false);
+    const ranked = plan.tasks.filter((t) => t.reason !== ROTATION);
+    expect(ranked.slice(0, 2).map((t) => t.taskType)).toEqual(['rw-fill-blanks', 'reading-fill-blanks']);
+    for (const t of ranked.slice(0, 2)) expect(getTaskType(t.taskType).skills.reading).toBeGreaterThan(0);
   });
 });
 
 describe('buildDailyPlan: exam close', () => {
-  it('adds one timed essay when the exam is within two weeks', () => {
+  it('adds one timed essay first when the exam is within two weeks', () => {
     const plan = buildDailyPlan(academic, settings({ examDate: '2026-10-20' }), untested(), 0, NOW);
     expect(plan.daysLeft).toBe(10);
     expect(plan.tasks[0]).toMatchObject({ taskType: 'write-essay', count: 1, reason: 'Exam is close: keep timed writing sharp' });
@@ -168,10 +220,10 @@ describe('buildDailyPlan: exam close', () => {
 });
 
 describe('the exam spec the plan relies on', () => {
-  it('gives every task type in both exams a published or approximate weight', () => {
-    for (const exam of [academic, core] as const) {
+  it('gives every task type in both exams a weight', () => {
+    for (const exam of [academic, core]) {
       for (const section of exam.sections) {
-        for (const type of section.taskTypes) expect(exam.weights[type], `${exam.id} ${type}`).toBeDefined();
+        for (const type of section.taskTypes as TaskTypeId[]) expect(exam.weights[type], `${exam.id} ${type}`).toBeDefined();
       }
     }
   });

@@ -175,6 +175,15 @@ describe('open speech (key-point coverage)', () => {
     expect(r.feedback).not.toContain('Missing: Lowest; Conclusion');
   });
 
+  it('gives no content, fluency or pronunciation for stock phrases that miss the key points (on-topic floor)', () => {
+    const stock = 'This is a very nice picture and I like it a lot. It looks good to me and it is interesting.';
+    const r = scoreOpenSpeech('describe-image', keyPoints, 'model', speech(stock, 30000));
+    expect(trait(r, 'content').score).toBe(0);
+    expect(trait(r, 'fluency').score).toBe(0);
+    expect(trait(r, 'pronunciation').score).toBe(0);
+    expect(r.feedback.join(' ')).toContain('Missing: Trend; Peak year; Lowest; Conclusion');
+  });
+
   it('scores half the content for half the key points, and names the missing ones', () => {
     const r = scoreOpenSpeech('describe-image', keyPoints, 'model', speech('Sales increased and peaked in 2020.', 30000));
     expect(trait(r, 'content').score).toBe(3); // 2 of 4 → 50% of 6

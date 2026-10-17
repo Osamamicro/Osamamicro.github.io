@@ -127,6 +127,10 @@ describe('splitSentences and paragraphs', () => {
     ]);
   });
 
+  it('does not end a sentence after an abbreviation such as "U.S." or "Dr."', () => {
+    expect(splitSentences('The U.S. economy grew. Dr. Lee agreed.')).toEqual(['The U.S. economy grew.', 'Dr. Lee agreed.']);
+  });
+
   it('does not split decimals such as 3.5', () => {
     expect(splitSentences('The rate rose 3.5 percent. Prices fell.')).toEqual(['The rate rose 3.5 percent.', 'Prices fell.']);
   });

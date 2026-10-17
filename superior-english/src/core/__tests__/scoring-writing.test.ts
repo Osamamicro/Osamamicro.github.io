@@ -32,6 +32,14 @@ describe('Summarize Written Text: form is a hard gate', () => {
     expect(r.feedback[0]).toContain('2 sentence(s)');
   });
 
+  it('takes a grammar band off for a single slip even in a short summary', () => {
+    // 8 words with one slip is 12.5 slips per 100 words, but one slip costs a band whatever the length.
+    const r = scoreSummarizeWrittenText('Reefs protect coastlines and he have many species.', coastKeyPoints, 'model');
+    expect(trait(r, 'form').score).toBe(1);
+    expect(trait(r, 'content').score).toBe(4);
+    expect(trait(r, 'grammar').score).toBe(1);
+  });
+
   it('scores form 0 for a single sentence longer than 75 words', () => {
     const long = `${Array.from({ length: 80 }, () => 'reef').join(' ')}.`;
     const r = scoreSummarizeWrittenText(long, coastKeyPoints, 'model');
@@ -68,6 +76,15 @@ describe('Write Essay: form bands by word count', () => {
   it('asks for 200–300 words in the feedback when the form is short', () => {
     const r = scoreWriteEssay(essayOf(150), essayPoints, 'model');
     expect(r.feedback[0]).toBe('Form: aim for 200–300 words (you wrote 150).');
+  });
+
+  it('gives no content to stock text that covers none of the key ideas (on-topic floor)', () => {
+    // Below the 25% key-point floor the essay earns no content, however long and fluent it looks.
+    const stock = Array.from({ length: 17 }, () => 'Many people believe this is a very important and complicated issue today.').join(' ');
+    const r = scoreWriteEssay(stock, essayPoints, 'model');
+    expect(trait(r, 'form').score).toBe(2);
+    expect(trait(r, 'content').score).toBe(0);
+    expect(r.feedback.join(' ')).toContain('does not address');
   });
 
   it('flags a common misspelling in the spelling trait', () => {

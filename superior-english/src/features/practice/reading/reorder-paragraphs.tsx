@@ -84,7 +84,7 @@ export function ReorderParagraphsRenderer({ item, mode, onSubmit, onDraft, resul
       </Text>
 
       <View style={{ flexDirection: wide ? 'row' : 'column', gap: 16 }}>
-        <View style={{ flex: wide ? 1 : 0, gap: 8 }}>
+        <View style={{ flex: wide ? 1 : undefined, gap: 8 }}>
           <Text variant="caption" tone="muted">
             SOURCE
           </Text>
@@ -109,7 +109,7 @@ export function ReorderParagraphsRenderer({ item, mode, onSubmit, onDraft, resul
           ))}
         </View>
 
-        <View style={{ flex: wide ? 1 : 0, gap: 8 }}>
+        <View style={{ flex: wide ? 1 : undefined, gap: 8 }}>
           <Text variant="caption" tone="muted">
             YOUR ORDER
           </Text>
