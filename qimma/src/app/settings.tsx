@@ -127,7 +127,7 @@ export default function SettingsScreen() {
       <Button label="Save" size="lg" disabled={!dateValid} onPress={save} />
       <Button label="Reset all data on this device" variant="ghost" onPress={confirmReset} />
       <Text variant="small" tone="faint">
-        Your progress is stored only on this device. Superior English is an independent study tool and is not affiliated with or
+        Your progress is stored only on this device. Qimma is an independent study tool and is not affiliated with or
         endorsed by Pearson. PTE is a trademark of Pearson.
       </Text>
     </Screen>

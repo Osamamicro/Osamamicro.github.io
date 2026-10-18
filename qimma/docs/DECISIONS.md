@@ -30,7 +30,7 @@ ADR-004).
 listings, published PTE task formats and scoring criteria) and implement everything ourselves.
 We do not decompile, scrape or copy the competitor's apps, question bank, audio, text, UI copy
 or branding, and we do not use "real exam question" memory dumps. Our brand is
-*Superior English*; the app states it is not affiliated with Pearson.
+*Qimma*; the app states it is not affiliated with Pearson.
 
 The `rea` reverse-engineering toolkit is reserved for software we own or are authorised to
 examine — e.g. auditing our own Android/web bundles for size, leaked secrets or dead code.
@@ -130,7 +130,7 @@ Full input: `docs/council/pedagogy.md`, `docs/council/engineering.md`.
 | ADR-004 | Native speech scoring | Dev build + on-device recogniser | Server STT, keep Expo Go | **Server STT first** (inside the ADR-008 service), on-device recogniser as a v0.3 offline option. Keeps the owner's emulator/Expo Go workflow and gives web and phones one transcript engine. Audio is processed transiently and never stored. Fluency/pronunciation on phones stay hidden until calibrated (≥50 rater-scored recordings). |
 | ADR-006 | Accounts + sync | Right after v0.2 (attempts, mocks) | Next milestone, anonymous auth, no audio | **v0.2:** JSON export/import (cheap device-loss cover). **v0.3:** Supabase anonymous auth + sync of attempts, mocks and SRS. Audio is never synced. Identity also rate-limits the scoring API. |
 | ADR-008 | Scoring service: when / stack | Before bank expansion, writing first, calibrate | Supabase Edge Functions (TS) | **Before expanding the bank, writing first.** Supabase Edge Functions in TypeScript, so the rubric types are shared with `src/core`. Model/STT keys only in function secrets, never `EXPO_PUBLIC_*`. Timeout/offline/non-2xx falls back to on-device scoring with a note. Release gated on ≥100 human-rated responses; model version pinned; trait bands shown as ranges. |
-| ADR-010 | Web hosting | — | GitHub Pages project site, `baseUrl` | **Move the app to its own repo** (as was done with the triathlon prototype) and deploy with GitHub Actions to `osamamicro.github.io/superior-english/` (`experiments.baseUrl: "/superior-english"`, SPA `404.html`). This user-site repo serves its root from `main` and its `superior-english/` folder holds source, so hosting here would need Pages switched to Actions — **owner's choice**. |
+| ADR-010 | Web hosting | — | GitHub Pages project site, `baseUrl` | **Move the app to its own repo** (as was done with the triathlon prototype) and deploy with GitHub Actions to `osamamicro.github.io/qimma/` (`experiments.baseUrl: "/qimma"`, SPA `404.html`). This user-site repo serves its root from `main` and its `qimma/` folder holds source, so hosting here would need Pages switched to Actions — **owner's choice**. |
 | ADR-011 | v0.2 learner features | Image-based DI; plan v2 with weekly minimums; SGD note grid | — | **Accepted, in that order.** Plan v2 anchors shipped now (daily DI, one long task per day on rotation). |
 
 **Applied immediately from the council's risk review:**
@@ -142,3 +142,14 @@ Full input: `docs/council/pedagogy.md`, `docs/council/engineering.md`.
 
 **Backlog from the review:** meaning-aware key points (figure + direction in the same sentence),
 storage-full warning + schema version, ESLint config for `expo lint`.
+
+## ADR-012 — Product name: Qimma
+
+**Context.** The working title "Superior English" collided with the DHA "Superior" level we
+use as a goal, and the owner asked for a more useful name.
+
+**Decision.** **Qimma** (قمّة, Arabic for *summit*): short and memorable. It carries no exam
+name, so it stays valid as IELTS, TOEFL, courses and materials arrive. It nods to the owner's
+Riyadh base, and no English-learning app with that name turned up. The project folder, package,
+bundle id (`com.osamamicro.qimma`), URL scheme, storage prefix and emulator AVD (`Qimma_Pixel`)
+all use `qimma`.

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Superior English: boot an Android emulator, then start Expo for Android on it.
+ * Qimma: boot an Android emulator, then start Expo for Android on it.
  *
  *   npm run emulator:android                    boot the AVD if needed, then expo start --android
  *   npm run emulator:android -- --no-start      only boot the emulator
@@ -17,7 +17,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const EXIT = { OK: 0, SETUP: 1, BOOT: 2, EXPO: 3 };
-const DEFAULT_AVD = 'SuperiorEnglish_Pixel';
+const DEFAULT_AVD = 'Qimma_Pixel';
 const BOOT_TIMEOUT_MS = 180_000;
 const IS_WINDOWS = process.platform === 'win32';
 const EXE = IS_WINDOWS ? '.exe' : '';
@@ -38,7 +38,7 @@ class UsageError extends Error {}
 function printHelp() {
   console.log(`Usage: npm run emulator:android -- [options]
 
-Boots the Superior English Android emulator, then starts Expo for Android.
+Boots the Qimma Android emulator, then starts Expo for Android.
 Expo Go is installed on the emulator automatically the first time.
 
 Options:
@@ -67,7 +67,7 @@ function parseArgs(argv) {
     else if (arg === '--cold') opts.cold = true;
     else if (arg === '--avd' || arg.startsWith('--avd=')) {
       const value = arg.includes('=') ? arg.slice(arg.indexOf('=') + 1) : argv[++i];
-      if (!value || value.startsWith('--')) throw new UsageError('--avd needs an AVD name, for example: --avd SuperiorEnglish_Pixel');
+      if (!value || value.startsWith('--')) throw new UsageError('--avd needs an AVD name, for example: --avd Qimma_Pixel');
       opts.avd = value;
     } else {
       throw new UsageError(`Unknown option "${arg}".`);
@@ -170,7 +170,7 @@ async function onlineDevices(adb) {
 
 /** Starts the AVD detached (so this terminal stays free for Expo) and waits until Android has booted. */
 async function bootEmulator(emulatorBin, adb, avd, cold) {
-  const logPath = path.join(os.tmpdir(), 'superior-english-emulator.log');
+  const logPath = path.join(os.tmpdir(), 'qimma-emulator.log');
   const log = openSync(logPath, 'w');
   const args = ['-avd', avd, '-netdelay', 'none', '-netspeed', 'full'];
   if (cold) args.push('-no-snapshot-load');

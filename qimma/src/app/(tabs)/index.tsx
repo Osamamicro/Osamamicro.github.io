@@ -31,8 +31,8 @@ export default function TodayScreen() {
   return (
     <Screen>
       <View style={{ gap: 4 }}>
-        <Text variant="title">Superior English</Text>
-        <Text tone="muted">Practise every PTE task type with instant, explained feedback.</Text>
+        <Text variant="title">Qimma</Text>
+        <Text tone="muted">Reach the summit: practise every PTE task type with instant, explained feedback.</Text>
       </View>
 
       <Row>

@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    One-time Android emulator setup for Superior English (Windows).
+    One-time Android emulator setup for Qimma (Windows).
 .DESCRIPTION
     Checks Java 17+, the Android SDK command-line tools and hardware virtualisation, then
     installs platform-tools, the emulator, Android 36 and a Google APIs system image with
-    sdkmanager, and creates the SuperiorEnglish_Pixel virtual device with avdmanager.
+    sdkmanager, and creates the Qimma_Pixel virtual device with avdmanager.
     Safe to run again: installed packages and an existing AVD are skipped.
 .PARAMETER Help
     Show the help and exit.
@@ -18,7 +18,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$AvdName = 'SuperiorEnglish_Pixel'
+$AvdName = 'Qimma_Pixel'
 $ApiLevel = 36
 
 function Write-Info {
@@ -138,7 +138,7 @@ if ($Help) {
     Write-Host @"
 Usage: powershell -ExecutionPolicy Bypass -File scripts\setup-android-emulator.ps1 [-Help]
 
-One-time Android emulator setup for Superior English (Windows).
+One-time Android emulator setup for Qimma (Windows).
 
 It needs Android Studio (or the Android command-line tools) and Java 17 or newer.
 It installs platform-tools, the emulator, Android $ApiLevel and a Google APIs system image
@@ -154,7 +154,7 @@ Afterwards, start the emulator and the app with:  npm run emulator:android
 $abi = 'x86_64'
 if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { $abi = 'arm64-v8a' }
 
-Write-Host 'Superior English: Android emulator setup (Windows)' -ForegroundColor White
+Write-Host 'Qimma: Android emulator setup (Windows)' -ForegroundColor White
 
 # ---- 1. Java 17+ -------------------------------------------------------------
 Write-Step 'Java'

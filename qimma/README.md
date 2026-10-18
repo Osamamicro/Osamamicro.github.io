@@ -1,8 +1,12 @@
-# Superior English
+# Qimma
 
-An original, cross-platform English exam trainer. It runs on **web, Android and iOS** from one
-Expo codebase. v0.1 targets **PTE Academic** and **PTE Core**. Later releases will add more
-exams (IELTS, TOEFL, Duolingo), MOOC-style courses and study materials.
+**Qimma** (قمّة, Arabic for *summit*) helps learners reach the top band (the *Superior*
+level) in English exams. It is an original, cross-platform exam trainer that runs on
+**web, Android and iOS** from one Expo codebase. v0.1 targets **PTE Academic** and
+**PTE Core**. Later releases will add more exams (IELTS, TOEFL, Duolingo), MOOC-style
+courses and study materials.
+
+> **Continuing development?** Start with [HANDOFF.md](HANDOFF.md).
 
 - **All task types.** It covers all 22 PTE Academic task types and PTE Core's *Write Email*.
   Each one has a strategy guide, a template and common mistakes to avoid.
@@ -20,7 +24,7 @@ exams (IELTS, TOEFL, Duolingo), MOOC-style courses and study materials.
 - **No copied content.** It is a clean-room product (see `docs/DECISIONS.md` ADR-002). Every
   question is original, and listening audio is generated on the device.
 
-> Superior English is an independent study tool and is not affiliated with or endorsed by
+> Qimma is an independent study tool and is not affiliated with or endorsed by
 > Pearson. PTE is a trademark of Pearson.
 
 ## Quick start
@@ -28,7 +32,7 @@ exams (IELTS, TOEFL, Duolingo), MOOC-style courses and study materials.
 Requirements: Node 22+ and npm.
 
 ```bash
-cd superior-english
+cd qimma
 npm install
 npm run web            # web app at http://localhost:8081 (use Chrome/Edge for speech scoring)
 ```

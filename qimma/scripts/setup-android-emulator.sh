@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Superior English: one-time Android emulator setup for macOS and Linux.
+# Qimma: one-time Android emulator setup for macOS and Linux.
 #
 # Installs platform-tools, the emulator, Android 36 and a Google APIs system image with
-# sdkmanager, then creates the SuperiorEnglish_Pixel virtual device with avdmanager.
+# sdkmanager, then creates the Qimma_Pixel virtual device with avdmanager.
 # Safe to run again: installed packages and an existing AVD are skipped.
 #
 #   bash scripts/setup-android-emulator.sh          run the setup
@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-AVD_NAME="SuperiorEnglish_Pixel"
+AVD_NAME="Qimma_Pixel"
 API_LEVEL=36
 
 if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
@@ -29,7 +29,7 @@ usage() {
   cat <<EOF
 Usage: bash scripts/setup-android-emulator.sh [--help]
 
-One-time setup of the Android emulator for Superior English (macOS and Linux).
+One-time setup of the Android emulator for Qimma (macOS and Linux).
 
 It needs Android Studio (or the Android command-line tools) and Java 17 or newer.
 It installs platform-tools, the emulator, Android ${API_LEVEL} and a Google APIs system

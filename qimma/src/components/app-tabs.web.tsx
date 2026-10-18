@@ -48,7 +48,7 @@ export default function AppTabs() {
           }}>
           <Link href="/" style={{ marginRight: compact ? undefined : 'auto', paddingHorizontal: compact ? space.sm : 0 }}>
             <Text variant="subheading" style={{ color: c.primary }}>
-              Superior English
+              Qimma
             </Text>
           </Link>
           <TabList style={{ flexDirection: 'row', gap: 2, justifyContent: compact ? 'space-between' : 'flex-end' }}>

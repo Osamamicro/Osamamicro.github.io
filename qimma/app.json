@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "Superior English",
-    "slug": "superior-english",
+    "name": "Qimma",
+    "slug": "qimma",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "superiorenglish",
+    "scheme": "qimma",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.osamamicro.superiorenglish",
+      "bundleIdentifier": "com.osamamicro.qimma",
       "supportsTablet": true
     },
     "android": {
@@ -20,7 +20,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.osamamicro.superiorenglish",
+      "package": "com.osamamicro.qimma",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
@@ -28,8 +28,8 @@
     "web": {
       "output": "single",
       "favicon": "./assets/images/favicon.png",
-      "name": "Superior English",
-      "shortName": "Superior",
+      "name": "Qimma",
+      "shortName": "Qimma",
       "themeColor": "#3347D1"
     },
     "plugins": [
@@ -45,7 +45,7 @@
       [
         "expo-audio",
         {
-          "microphonePermission": "Allow Superior English to record your answers to speaking tasks."
+          "microphonePermission": "Allow Qimma to record your answers to speaking tasks."
         }
       ],
       "expo-sqlite"

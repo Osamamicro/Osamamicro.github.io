@@ -58,7 +58,7 @@ Author: council-engineering. Inputs: docs/DECISIONS.md, FEATURE-MAP.md, ROADMAP.
 
 ## D4. Web deployment: GitHub Pages as a project site, from its own repo
 
-**Recommendation.** Keep GitHub Pages, but publish `superior-english` from its own repository with a GitHub Actions workflow, so the app lives at `osamamicro.github.io/superior-english/`. Do not commit the build into the `Osamamicro.github.io` repo.
+**Recommendation.** Keep GitHub Pages, but publish `qimma` from its own repository with a GitHub Actions workflow, so the app lives at `osamamicro.github.io/qimma/`. Do not commit the build into the `Osamamicro.github.io` repo.
 
 **Confidence.** Medium.
 
@@ -67,7 +67,7 @@ Author: council-engineering. Inputs: docs/DECISIONS.md, FEATURE-MAP.md, ROADMAP.
 2. Vercel, Netlify and EAS Hosting would work, but they move the app off the URL the owner wants. EAS Hosting is the runner-up if per-route HTML without the 404 workaround matters more.
 
 **Changes to `app.json`.**
-- Add `"experiments": { "baseUrl": "/superior-english", ... }`. Without it, the export references root-relative `/_expo/` assets, which 404 under a subpath and leave a blank page. It affects only the web export.
+- Add `"experiments": { "baseUrl": "/qimma", ... }`. Without it, the export references root-relative `/_expo/` assets, which 404 under a subpath and leave a blank page. It affects only the web export.
 - Keep `"web.output": "single"`. Copy `index.html` to `404.html` in the build so deep links and refreshes work. Do not switch to `"static"` yet: it is untested with the `expo-sqlite` localStorage install and the native-only modules.
 - If legacy branch-deploy is used instead of the Actions artifact, add `.nojekyll`, because Jekyll drops `_expo/`.
 

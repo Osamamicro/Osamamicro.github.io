@@ -1,4 +1,4 @@
-# Testing Superior English on your PC
+# Testing Qimma on your PC
 
 This guide gets the app running on an Android emulator (Windows, macOS or Linux), on an iOS
 Simulator (macOS), on your own phone with Expo Go, or in a web browser. Windows comes first
@@ -49,7 +49,7 @@ Open **PowerShell** (Start, type "PowerShell"). Run the commands in the project 
 
 ```powershell
 git clone https://github.com/Osamamicro/Osamamicro.github.io.git
-cd Osamamicro.github.io\superior-english
+cd Osamamicro.github.io\qimma
 npm install
 ```
 
@@ -68,7 +68,7 @@ The script:
    Android Studio and stops;
 4. installs `platform-tools`, `emulator`, `platforms;android-36` and a Google APIs system image
    (about 1.5 GB), and accepts the licences;
-5. creates the virtual device **SuperiorEnglish_Pixel**.
+5. creates the virtual device **Qimma_Pixel**.
 
 It is safe to run again. Packages that are already installed are skipped.
 
@@ -120,7 +120,7 @@ browser speech recognition is used where it is available (section 6).
 
 ```bash
 git clone https://github.com/Osamamicro/Osamamicro.github.io.git
-cd Osamamicro.github.io/superior-english
+cd Osamamicro.github.io/qimma
 npm install
 bash scripts/setup-android-emulator.sh   # once
 npm run emulator:android                 # every day
@@ -147,7 +147,7 @@ open the Simulator if it is not already open.
 
 ```bash
 git clone https://github.com/Osamamicro/Osamamicro.github.io.git
-cd Osamamicro.github.io/superior-english
+cd Osamamicro.github.io/qimma
 npm install
 bash scripts/setup-android-emulator.sh   # once
 npm run emulator:android                 # every day
@@ -211,8 +211,8 @@ Allow the microphone when the browser asks.
 | `Command-line tools are missing` | Android Studio did not install the command-line tools | In Android Studio: Settings > Languages & Frameworks > Android SDK > SDK Tools > tick **Android SDK Command-line Tools (latest)** > Apply. Then run the script again. |
 | `Java 17 or newer is needed` | Java 8 or 11 is first on `PATH` | Set `JAVA_HOME` to Android Studio's JBR (`C:\Program Files\Android\Android Studio\jbr`) or install JDK 17. |
 | Emulator very slow, or `HAXM` / `WHPX` / `accel` errors | Hardware acceleration is off or the wrong driver is in use | Turn on **Windows Hypervisor Platform** and restart (section 1). Do not use HAXM. Check the log printed by the launcher. |
-| `Waiting for Android to boot` for minutes, then "did not finish booting" | First boot is slow, or the emulator is stuck | Try `npm run emulator:android -- --cold`. If it still fails, open Device Manager in Android Studio, edit SuperiorEnglish_Pixel, raise **RAM** to 4096 MB and set **Graphics** to *Software - GLES 2.0*. |
-| Emulator stops at once | Missing or broken system image, or a driver problem | Read the log: `%TEMP%\superior-english-emulator.log` (Windows) or `/tmp/superior-english-emulator.log` (macOS and Linux). |
+| `Waiting for Android to boot` for minutes, then "did not finish booting" | First boot is slow, or the emulator is stuck | Try `npm run emulator:android -- --cold`. If it still fails, open Device Manager in Android Studio, edit Qimma_Pixel, raise **RAM** to 4096 MB and set **Graphics** to *Software - GLES 2.0*. |
+| Emulator stops at once | Missing or broken system image, or a driver problem | Read the log: `%TEMP%\qimma-emulator.log` (Windows) or `/tmp/qimma-emulator.log` (macOS and Linux). |
 | `Expo Go` version mismatch, or "Project is incompatible with this version of Expo Go" | Expo Go on the emulator is older than SDK 58 | On the emulator, long-press Expo Go, choose **Uninstall**, then run `npx expo start --android` again. It reinstalls the current version. |
 | `Port 8081 is already in use` | Another Metro or Expo server is running | Close the other terminal, or run `npx expo start --android --port 8090`. |
 | Phone or browser cannot connect to the dev server | Windows Firewall blocks Node.js on the private network | Allow **Node.js** when Windows asks, for private networks. Or use `npx expo start --tunnel` (section 5). |

@@ -1,7 +1,8 @@
 @AGENTS.md
 
-# Superior English — project notes for Claude
+# Qimma — project notes for Claude
 
+- New session? Start with `HANDOFF.md` (state, setup, backlog, open decisions).
 - Read `docs/team/BRIEF.md` before changing code. Contracts: `src/core/content/types.ts`
   (items and responses) and `src/features/practice/types.ts` (renderers).
 - Keep `src/core` free of React Native imports. Every scoring or plan change needs a Vitest test.

@@ -11,7 +11,7 @@ import { useSyncExternalStore } from 'react';
 type Listener = () => void;
 const listeners = new Map<string, Set<Listener>>();
 const cache = new Map<string, unknown>();
-const PREFIX = 'se:';
+const PREFIX = 'qimma:';
 
 function read<T>(key: string, fallback: T): T {
   if (cache.has(key)) return cache.get(key) as T;
